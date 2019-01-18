@@ -88,7 +88,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = x86_64-pc-linux-gnu
 host_triplet = x86_64-pc-linux-gnu
-bin_PROGRAMS = wizarddb$(EXEEXT)
+bin_PROGRAMS = wizarddb$(EXEEXT) edb$(EXEEXT)
 subdir = .
 ACLOCAL_M4 = $(top_srcdir)/aclocal.m4
 am__aclocal_m4_deps = $(top_srcdir)/configure.in
@@ -104,11 +104,19 @@ CONFIG_CLEAN_FILES =
 CONFIG_CLEAN_VPATH_FILES =
 am__installdirs = "$(DESTDIR)$(bindir)"
 PROGRAMS = $(bin_PROGRAMS)
+am_edb_OBJECTS = edb-edb.$(OBJEXT) edb-command.$(OBJEXT) \
+	edb-commandFactory.$(OBJEXT) edb-bsonobj.$(OBJEXT) \
+	edb-json.$(OBJEXT) edb-oid.$(OBJEXT) edb-base64.$(OBJEXT) \
+	edb-md5.$(OBJEXT) edb-nonce.$(OBJEXT) edb-osssocket.$(OBJEXT)
+edb_OBJECTS = $(am_edb_OBJECTS)
+edb_DEPENDENCIES =
+edb_LINK = $(CXXLD) $(edb_CXXFLAGS) $(CXXFLAGS) $(edb_LDFLAGS) \
+	$(LDFLAGS) -o $@
 am_wizarddb_OBJECTS = wizarddb-pmdMain.$(OBJEXT) \
-	wizarddb-bsonobj.$(OBJEXT) wizarddb-json.$(OBJEXT) \
-	wizarddb-oid.$(OBJEXT) wizarddb-base64.$(OBJEXT) \
-	wizarddb-md5.$(OBJEXT) wizarddb-nonce.$(OBJEXT) \
-	wizarddb-osssocket.$(OBJEXT)
+	wizarddb-pmdTcpListener.$(OBJEXT) wizarddb-bsonobj.$(OBJEXT) \
+	wizarddb-json.$(OBJEXT) wizarddb-oid.$(OBJEXT) \
+	wizarddb-base64.$(OBJEXT) wizarddb-md5.$(OBJEXT) \
+	wizarddb-nonce.$(OBJEXT) wizarddb-osssocket.$(OBJEXT)
 wizarddb_OBJECTS = $(am_wizarddb_OBJECTS)
 wizarddb_DEPENDENCIES =
 wizarddb_LINK = $(CXXLD) $(wizarddb_CXXFLAGS) $(CXXFLAGS) \
@@ -146,8 +154,8 @@ AM_V_CXXLD = $(am__v_CXXLD_$(V))
 am__v_CXXLD_ = $(am__v_CXXLD_$(AM_DEFAULT_VERBOSITY))
 am__v_CXXLD_0 = @echo "  CXXLD   " $@;
 am__v_CXXLD_1 = 
-SOURCES = $(wizarddb_SOURCES)
-DIST_SOURCES = $(wizarddb_SOURCES)
+SOURCES = $(edb_SOURCES) $(wizarddb_SOURCES)
+DIST_SOURCES = $(edb_SOURCES) $(wizarddb_SOURCES)
 am__can_run_installinfo = \
   case $$AM_UPDATE_INFO_DIR in \
     n|no|NO) false;; \
@@ -194,12 +202,12 @@ distuninstallcheck_listfiles = find . -type f -print
 am__distuninstallcheck_listfiles = $(distuninstallcheck_listfiles) \
   | sed 's|^\./|$(prefix)/|' | grep -v '$(infodir)/dir$$'
 distcleancheck_listfiles = find . -type f -print
-ACLOCAL = ${SHELL} /home/wizard/wizarddb/src/missing aclocal-1.15
+ACLOCAL = ${SHELL} /home/wizard/git/wizarddb/src/missing aclocal-1.15
 AMTAR = $${TAR-tar}
 AM_DEFAULT_VERBOSITY = 1
-AUTOCONF = ${SHELL} /home/wizard/wizarddb/src/missing autoconf
-AUTOHEADER = ${SHELL} /home/wizard/wizarddb/src/missing autoheader
-AUTOMAKE = ${SHELL} /home/wizard/wizarddb/src/missing automake-1.15
+AUTOCONF = ${SHELL} /home/wizard/git/wizarddb/src/missing autoconf
+AUTOHEADER = ${SHELL} /home/wizard/git/wizarddb/src/missing autoheader
+AUTOMAKE = ${SHELL} /home/wizard/git/wizarddb/src/missing automake-1.15
 AWK = mawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
@@ -227,7 +235,7 @@ LDFLAGS =
 LIBOBJS = 
 LIBS = 
 LTLIBOBJS = 
-MAKEINFO = ${SHELL} /home/wizard/wizarddb/src/missing makeinfo
+MAKEINFO = ${SHELL} /home/wizard/git/wizarddb/src/missing makeinfo
 MKDIR_P = /bin/mkdir -p
 OBJEXT = o
 PACKAGE = wizardddb
@@ -242,10 +250,10 @@ SET_MAKE =
 SHELL = /bin/bash
 STRIP = 
 VERSION = 1.0
-abs_builddir = /home/wizard/wizarddb/src
-abs_srcdir = /home/wizard/wizarddb/src
-abs_top_builddir = /home/wizard/wizarddb/src
-abs_top_srcdir = /home/wizard/wizarddb/src
+abs_builddir = /home/wizard/git/wizarddb/src
+abs_srcdir = /home/wizard/git/wizarddb/src
+abs_top_builddir = /home/wizard/git/wizarddb/src
+abs_top_srcdir = /home/wizard/git/wizarddb/src
 ac_ct_CC = gcc
 ac_ct_CXX = g++
 am__include = include
@@ -273,7 +281,7 @@ host_vendor = pc
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = ${SHELL} /home/wizard/wizarddb/src/install-sh
+install_sh = ${SHELL} /home/wizard/git/wizarddb/src/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -296,7 +304,13 @@ top_builddir = .
 top_srcdir = .
 AUTOMAKE_OPTIONS = foreign
 wizarddb_SOURCES = \
-   pmd/pmdMain.cpp  \
+   pmd/pmdMain.cpp  pmd/pmdTcpListener.cpp \
+   bson/src/bsonobj.cpp bson/src/util/json.cpp bson/src/oid.cpp \
+   bson/src/lib/base64.cpp bson/src/lib/md5.cpp bson/src/lib/nonce.cpp \
+   oss/osssocket.cpp
+
+edb_SOURCES = \
+   client/edb.cpp client/command.cpp client/commandFactory.cpp \
    bson/src/bsonobj.cpp bson/src/util/json.cpp bson/src/oid.cpp \
    bson/src/lib/base64.cpp bson/src/lib/md5.cpp bson/src/lib/nonce.cpp \
    oss/osssocket.cpp
@@ -304,6 +318,9 @@ wizarddb_SOURCES = \
 wizarddb_CXXFLAGS = -I../boost/boost -Ibson/src -Iinclude -D_FILE_OFFSET_BITS=64 -ggdb -Wall -O0
 wizarddb_LDADD = -lboost_system -lm -lboost_thread -lboost_program_options -lrt
 wizarddb_LDFLAGS = -fPIC -rdynamic -L../boost/stage/lib -pthread
+edb_CXXFLAGS = -I../boost -Ibson/src -Iinclude -D_FILE_OFFSET_BITS=64 -ggdb -Wall -O0
+edb_LDADD = -lm -lboost_system -lboost_thread -lrt
+edb_LDFLAGS = -fPIC -rdynamic -L../boost/stage/lib 
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-am
 
@@ -400,6 +417,10 @@ uninstall-binPROGRAMS:
 clean-binPROGRAMS:
 	-test -z "$(bin_PROGRAMS)" || rm -f $(bin_PROGRAMS)
 
+edb$(EXEEXT): $(edb_OBJECTS) $(edb_DEPENDENCIES) $(EXTRA_edb_DEPENDENCIES) 
+	@rm -f edb$(EXEEXT)
+	$(AM_V_CXXLD)$(edb_LINK) $(edb_OBJECTS) $(edb_LDADD) $(LIBS)
+
 wizarddb$(EXEEXT): $(wizarddb_OBJECTS) $(wizarddb_DEPENDENCIES) $(EXTRA_wizarddb_DEPENDENCIES) 
 	@rm -f wizarddb$(EXEEXT)
 	$(AM_V_CXXLD)$(wizarddb_LINK) $(wizarddb_OBJECTS) $(wizarddb_LDADD) $(LIBS)
@@ -410,6 +431,16 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+include ./$(DEPDIR)/edb-base64.Po
+include ./$(DEPDIR)/edb-bsonobj.Po
+include ./$(DEPDIR)/edb-command.Po
+include ./$(DEPDIR)/edb-commandFactory.Po
+include ./$(DEPDIR)/edb-edb.Po
+include ./$(DEPDIR)/edb-json.Po
+include ./$(DEPDIR)/edb-md5.Po
+include ./$(DEPDIR)/edb-nonce.Po
+include ./$(DEPDIR)/edb-oid.Po
+include ./$(DEPDIR)/edb-osssocket.Po
 include ./$(DEPDIR)/wizarddb-base64.Po
 include ./$(DEPDIR)/wizarddb-bsonobj.Po
 include ./$(DEPDIR)/wizarddb-json.Po
@@ -418,6 +449,7 @@ include ./$(DEPDIR)/wizarddb-nonce.Po
 include ./$(DEPDIR)/wizarddb-oid.Po
 include ./$(DEPDIR)/wizarddb-osssocket.Po
 include ./$(DEPDIR)/wizarddb-pmdMain.Po
+include ./$(DEPDIR)/wizarddb-pmdTcpListener.Po
 
 .cpp.o:
 	$(AM_V_CXX)$(CXXCOMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
@@ -433,6 +465,146 @@ include ./$(DEPDIR)/wizarddb-pmdMain.Po
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
 #	$(AM_V_CXX_no)$(CXXCOMPILE) -c -o $@ `$(CYGPATH_W) '$<'`
 
+edb-edb.o: client/edb.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(edb_CXXFLAGS) $(CXXFLAGS) -MT edb-edb.o -MD -MP -MF $(DEPDIR)/edb-edb.Tpo -c -o edb-edb.o `test -f 'client/edb.cpp' || echo '$(srcdir)/'`client/edb.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/edb-edb.Tpo $(DEPDIR)/edb-edb.Po
+#	$(AM_V_CXX)source='client/edb.cpp' object='edb-edb.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(edb_CXXFLAGS) $(CXXFLAGS) -c -o edb-edb.o `test -f 'client/edb.cpp' || echo '$(srcdir)/'`client/edb.cpp
+
+edb-edb.obj: client/edb.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(edb_CXXFLAGS) $(CXXFLAGS) -MT edb-edb.obj -MD -MP -MF $(DEPDIR)/edb-edb.Tpo -c -o edb-edb.obj `if test -f 'client/edb.cpp'; then $(CYGPATH_W) 'client/edb.cpp'; else $(CYGPATH_W) '$(srcdir)/client/edb.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/edb-edb.Tpo $(DEPDIR)/edb-edb.Po
+#	$(AM_V_CXX)source='client/edb.cpp' object='edb-edb.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(edb_CXXFLAGS) $(CXXFLAGS) -c -o edb-edb.obj `if test -f 'client/edb.cpp'; then $(CYGPATH_W) 'client/edb.cpp'; else $(CYGPATH_W) '$(srcdir)/client/edb.cpp'; fi`
+
+edb-command.o: client/command.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(edb_CXXFLAGS) $(CXXFLAGS) -MT edb-command.o -MD -MP -MF $(DEPDIR)/edb-command.Tpo -c -o edb-command.o `test -f 'client/command.cpp' || echo '$(srcdir)/'`client/command.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/edb-command.Tpo $(DEPDIR)/edb-command.Po
+#	$(AM_V_CXX)source='client/command.cpp' object='edb-command.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(edb_CXXFLAGS) $(CXXFLAGS) -c -o edb-command.o `test -f 'client/command.cpp' || echo '$(srcdir)/'`client/command.cpp
+
+edb-command.obj: client/command.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(edb_CXXFLAGS) $(CXXFLAGS) -MT edb-command.obj -MD -MP -MF $(DEPDIR)/edb-command.Tpo -c -o edb-command.obj `if test -f 'client/command.cpp'; then $(CYGPATH_W) 'client/command.cpp'; else $(CYGPATH_W) '$(srcdir)/client/command.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/edb-command.Tpo $(DEPDIR)/edb-command.Po
+#	$(AM_V_CXX)source='client/command.cpp' object='edb-command.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(edb_CXXFLAGS) $(CXXFLAGS) -c -o edb-command.obj `if test -f 'client/command.cpp'; then $(CYGPATH_W) 'client/command.cpp'; else $(CYGPATH_W) '$(srcdir)/client/command.cpp'; fi`
+
+edb-commandFactory.o: client/commandFactory.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(edb_CXXFLAGS) $(CXXFLAGS) -MT edb-commandFactory.o -MD -MP -MF $(DEPDIR)/edb-commandFactory.Tpo -c -o edb-commandFactory.o `test -f 'client/commandFactory.cpp' || echo '$(srcdir)/'`client/commandFactory.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/edb-commandFactory.Tpo $(DEPDIR)/edb-commandFactory.Po
+#	$(AM_V_CXX)source='client/commandFactory.cpp' object='edb-commandFactory.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(edb_CXXFLAGS) $(CXXFLAGS) -c -o edb-commandFactory.o `test -f 'client/commandFactory.cpp' || echo '$(srcdir)/'`client/commandFactory.cpp
+
+edb-commandFactory.obj: client/commandFactory.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(edb_CXXFLAGS) $(CXXFLAGS) -MT edb-commandFactory.obj -MD -MP -MF $(DEPDIR)/edb-commandFactory.Tpo -c -o edb-commandFactory.obj `if test -f 'client/commandFactory.cpp'; then $(CYGPATH_W) 'client/commandFactory.cpp'; else $(CYGPATH_W) '$(srcdir)/client/commandFactory.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/edb-commandFactory.Tpo $(DEPDIR)/edb-commandFactory.Po
+#	$(AM_V_CXX)source='client/commandFactory.cpp' object='edb-commandFactory.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(edb_CXXFLAGS) $(CXXFLAGS) -c -o edb-commandFactory.obj `if test -f 'client/commandFactory.cpp'; then $(CYGPATH_W) 'client/commandFactory.cpp'; else $(CYGPATH_W) '$(srcdir)/client/commandFactory.cpp'; fi`
+
+edb-bsonobj.o: bson/src/bsonobj.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(edb_CXXFLAGS) $(CXXFLAGS) -MT edb-bsonobj.o -MD -MP -MF $(DEPDIR)/edb-bsonobj.Tpo -c -o edb-bsonobj.o `test -f 'bson/src/bsonobj.cpp' || echo '$(srcdir)/'`bson/src/bsonobj.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/edb-bsonobj.Tpo $(DEPDIR)/edb-bsonobj.Po
+#	$(AM_V_CXX)source='bson/src/bsonobj.cpp' object='edb-bsonobj.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(edb_CXXFLAGS) $(CXXFLAGS) -c -o edb-bsonobj.o `test -f 'bson/src/bsonobj.cpp' || echo '$(srcdir)/'`bson/src/bsonobj.cpp
+
+edb-bsonobj.obj: bson/src/bsonobj.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(edb_CXXFLAGS) $(CXXFLAGS) -MT edb-bsonobj.obj -MD -MP -MF $(DEPDIR)/edb-bsonobj.Tpo -c -o edb-bsonobj.obj `if test -f 'bson/src/bsonobj.cpp'; then $(CYGPATH_W) 'bson/src/bsonobj.cpp'; else $(CYGPATH_W) '$(srcdir)/bson/src/bsonobj.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/edb-bsonobj.Tpo $(DEPDIR)/edb-bsonobj.Po
+#	$(AM_V_CXX)source='bson/src/bsonobj.cpp' object='edb-bsonobj.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(edb_CXXFLAGS) $(CXXFLAGS) -c -o edb-bsonobj.obj `if test -f 'bson/src/bsonobj.cpp'; then $(CYGPATH_W) 'bson/src/bsonobj.cpp'; else $(CYGPATH_W) '$(srcdir)/bson/src/bsonobj.cpp'; fi`
+
+edb-json.o: bson/src/util/json.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(edb_CXXFLAGS) $(CXXFLAGS) -MT edb-json.o -MD -MP -MF $(DEPDIR)/edb-json.Tpo -c -o edb-json.o `test -f 'bson/src/util/json.cpp' || echo '$(srcdir)/'`bson/src/util/json.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/edb-json.Tpo $(DEPDIR)/edb-json.Po
+#	$(AM_V_CXX)source='bson/src/util/json.cpp' object='edb-json.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(edb_CXXFLAGS) $(CXXFLAGS) -c -o edb-json.o `test -f 'bson/src/util/json.cpp' || echo '$(srcdir)/'`bson/src/util/json.cpp
+
+edb-json.obj: bson/src/util/json.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(edb_CXXFLAGS) $(CXXFLAGS) -MT edb-json.obj -MD -MP -MF $(DEPDIR)/edb-json.Tpo -c -o edb-json.obj `if test -f 'bson/src/util/json.cpp'; then $(CYGPATH_W) 'bson/src/util/json.cpp'; else $(CYGPATH_W) '$(srcdir)/bson/src/util/json.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/edb-json.Tpo $(DEPDIR)/edb-json.Po
+#	$(AM_V_CXX)source='bson/src/util/json.cpp' object='edb-json.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(edb_CXXFLAGS) $(CXXFLAGS) -c -o edb-json.obj `if test -f 'bson/src/util/json.cpp'; then $(CYGPATH_W) 'bson/src/util/json.cpp'; else $(CYGPATH_W) '$(srcdir)/bson/src/util/json.cpp'; fi`
+
+edb-oid.o: bson/src/oid.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(edb_CXXFLAGS) $(CXXFLAGS) -MT edb-oid.o -MD -MP -MF $(DEPDIR)/edb-oid.Tpo -c -o edb-oid.o `test -f 'bson/src/oid.cpp' || echo '$(srcdir)/'`bson/src/oid.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/edb-oid.Tpo $(DEPDIR)/edb-oid.Po
+#	$(AM_V_CXX)source='bson/src/oid.cpp' object='edb-oid.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(edb_CXXFLAGS) $(CXXFLAGS) -c -o edb-oid.o `test -f 'bson/src/oid.cpp' || echo '$(srcdir)/'`bson/src/oid.cpp
+
+edb-oid.obj: bson/src/oid.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(edb_CXXFLAGS) $(CXXFLAGS) -MT edb-oid.obj -MD -MP -MF $(DEPDIR)/edb-oid.Tpo -c -o edb-oid.obj `if test -f 'bson/src/oid.cpp'; then $(CYGPATH_W) 'bson/src/oid.cpp'; else $(CYGPATH_W) '$(srcdir)/bson/src/oid.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/edb-oid.Tpo $(DEPDIR)/edb-oid.Po
+#	$(AM_V_CXX)source='bson/src/oid.cpp' object='edb-oid.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(edb_CXXFLAGS) $(CXXFLAGS) -c -o edb-oid.obj `if test -f 'bson/src/oid.cpp'; then $(CYGPATH_W) 'bson/src/oid.cpp'; else $(CYGPATH_W) '$(srcdir)/bson/src/oid.cpp'; fi`
+
+edb-base64.o: bson/src/lib/base64.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(edb_CXXFLAGS) $(CXXFLAGS) -MT edb-base64.o -MD -MP -MF $(DEPDIR)/edb-base64.Tpo -c -o edb-base64.o `test -f 'bson/src/lib/base64.cpp' || echo '$(srcdir)/'`bson/src/lib/base64.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/edb-base64.Tpo $(DEPDIR)/edb-base64.Po
+#	$(AM_V_CXX)source='bson/src/lib/base64.cpp' object='edb-base64.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(edb_CXXFLAGS) $(CXXFLAGS) -c -o edb-base64.o `test -f 'bson/src/lib/base64.cpp' || echo '$(srcdir)/'`bson/src/lib/base64.cpp
+
+edb-base64.obj: bson/src/lib/base64.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(edb_CXXFLAGS) $(CXXFLAGS) -MT edb-base64.obj -MD -MP -MF $(DEPDIR)/edb-base64.Tpo -c -o edb-base64.obj `if test -f 'bson/src/lib/base64.cpp'; then $(CYGPATH_W) 'bson/src/lib/base64.cpp'; else $(CYGPATH_W) '$(srcdir)/bson/src/lib/base64.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/edb-base64.Tpo $(DEPDIR)/edb-base64.Po
+#	$(AM_V_CXX)source='bson/src/lib/base64.cpp' object='edb-base64.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(edb_CXXFLAGS) $(CXXFLAGS) -c -o edb-base64.obj `if test -f 'bson/src/lib/base64.cpp'; then $(CYGPATH_W) 'bson/src/lib/base64.cpp'; else $(CYGPATH_W) '$(srcdir)/bson/src/lib/base64.cpp'; fi`
+
+edb-md5.o: bson/src/lib/md5.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(edb_CXXFLAGS) $(CXXFLAGS) -MT edb-md5.o -MD -MP -MF $(DEPDIR)/edb-md5.Tpo -c -o edb-md5.o `test -f 'bson/src/lib/md5.cpp' || echo '$(srcdir)/'`bson/src/lib/md5.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/edb-md5.Tpo $(DEPDIR)/edb-md5.Po
+#	$(AM_V_CXX)source='bson/src/lib/md5.cpp' object='edb-md5.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(edb_CXXFLAGS) $(CXXFLAGS) -c -o edb-md5.o `test -f 'bson/src/lib/md5.cpp' || echo '$(srcdir)/'`bson/src/lib/md5.cpp
+
+edb-md5.obj: bson/src/lib/md5.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(edb_CXXFLAGS) $(CXXFLAGS) -MT edb-md5.obj -MD -MP -MF $(DEPDIR)/edb-md5.Tpo -c -o edb-md5.obj `if test -f 'bson/src/lib/md5.cpp'; then $(CYGPATH_W) 'bson/src/lib/md5.cpp'; else $(CYGPATH_W) '$(srcdir)/bson/src/lib/md5.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/edb-md5.Tpo $(DEPDIR)/edb-md5.Po
+#	$(AM_V_CXX)source='bson/src/lib/md5.cpp' object='edb-md5.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(edb_CXXFLAGS) $(CXXFLAGS) -c -o edb-md5.obj `if test -f 'bson/src/lib/md5.cpp'; then $(CYGPATH_W) 'bson/src/lib/md5.cpp'; else $(CYGPATH_W) '$(srcdir)/bson/src/lib/md5.cpp'; fi`
+
+edb-nonce.o: bson/src/lib/nonce.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(edb_CXXFLAGS) $(CXXFLAGS) -MT edb-nonce.o -MD -MP -MF $(DEPDIR)/edb-nonce.Tpo -c -o edb-nonce.o `test -f 'bson/src/lib/nonce.cpp' || echo '$(srcdir)/'`bson/src/lib/nonce.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/edb-nonce.Tpo $(DEPDIR)/edb-nonce.Po
+#	$(AM_V_CXX)source='bson/src/lib/nonce.cpp' object='edb-nonce.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(edb_CXXFLAGS) $(CXXFLAGS) -c -o edb-nonce.o `test -f 'bson/src/lib/nonce.cpp' || echo '$(srcdir)/'`bson/src/lib/nonce.cpp
+
+edb-nonce.obj: bson/src/lib/nonce.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(edb_CXXFLAGS) $(CXXFLAGS) -MT edb-nonce.obj -MD -MP -MF $(DEPDIR)/edb-nonce.Tpo -c -o edb-nonce.obj `if test -f 'bson/src/lib/nonce.cpp'; then $(CYGPATH_W) 'bson/src/lib/nonce.cpp'; else $(CYGPATH_W) '$(srcdir)/bson/src/lib/nonce.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/edb-nonce.Tpo $(DEPDIR)/edb-nonce.Po
+#	$(AM_V_CXX)source='bson/src/lib/nonce.cpp' object='edb-nonce.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(edb_CXXFLAGS) $(CXXFLAGS) -c -o edb-nonce.obj `if test -f 'bson/src/lib/nonce.cpp'; then $(CYGPATH_W) 'bson/src/lib/nonce.cpp'; else $(CYGPATH_W) '$(srcdir)/bson/src/lib/nonce.cpp'; fi`
+
+edb-osssocket.o: oss/osssocket.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(edb_CXXFLAGS) $(CXXFLAGS) -MT edb-osssocket.o -MD -MP -MF $(DEPDIR)/edb-osssocket.Tpo -c -o edb-osssocket.o `test -f 'oss/osssocket.cpp' || echo '$(srcdir)/'`oss/osssocket.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/edb-osssocket.Tpo $(DEPDIR)/edb-osssocket.Po
+#	$(AM_V_CXX)source='oss/osssocket.cpp' object='edb-osssocket.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(edb_CXXFLAGS) $(CXXFLAGS) -c -o edb-osssocket.o `test -f 'oss/osssocket.cpp' || echo '$(srcdir)/'`oss/osssocket.cpp
+
+edb-osssocket.obj: oss/osssocket.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(edb_CXXFLAGS) $(CXXFLAGS) -MT edb-osssocket.obj -MD -MP -MF $(DEPDIR)/edb-osssocket.Tpo -c -o edb-osssocket.obj `if test -f 'oss/osssocket.cpp'; then $(CYGPATH_W) 'oss/osssocket.cpp'; else $(CYGPATH_W) '$(srcdir)/oss/osssocket.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/edb-osssocket.Tpo $(DEPDIR)/edb-osssocket.Po
+#	$(AM_V_CXX)source='oss/osssocket.cpp' object='edb-osssocket.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(edb_CXXFLAGS) $(CXXFLAGS) -c -o edb-osssocket.obj `if test -f 'oss/osssocket.cpp'; then $(CYGPATH_W) 'oss/osssocket.cpp'; else $(CYGPATH_W) '$(srcdir)/oss/osssocket.cpp'; fi`
+
 wizarddb-pmdMain.o: pmd/pmdMain.cpp
 	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(wizarddb_CXXFLAGS) $(CXXFLAGS) -MT wizarddb-pmdMain.o -MD -MP -MF $(DEPDIR)/wizarddb-pmdMain.Tpo -c -o wizarddb-pmdMain.o `test -f 'pmd/pmdMain.cpp' || echo '$(srcdir)/'`pmd/pmdMain.cpp
 	$(AM_V_at)$(am__mv) $(DEPDIR)/wizarddb-pmdMain.Tpo $(DEPDIR)/wizarddb-pmdMain.Po
@@ -446,6 +618,20 @@ wizarddb-pmdMain.obj: pmd/pmdMain.cpp
 #	$(AM_V_CXX)source='pmd/pmdMain.cpp' object='wizarddb-pmdMain.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
 #	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(wizarddb_CXXFLAGS) $(CXXFLAGS) -c -o wizarddb-pmdMain.obj `if test -f 'pmd/pmdMain.cpp'; then $(CYGPATH_W) 'pmd/pmdMain.cpp'; else $(CYGPATH_W) '$(srcdir)/pmd/pmdMain.cpp'; fi`
+
+wizarddb-pmdTcpListener.o: pmd/pmdTcpListener.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(wizarddb_CXXFLAGS) $(CXXFLAGS) -MT wizarddb-pmdTcpListener.o -MD -MP -MF $(DEPDIR)/wizarddb-pmdTcpListener.Tpo -c -o wizarddb-pmdTcpListener.o `test -f 'pmd/pmdTcpListener.cpp' || echo '$(srcdir)/'`pmd/pmdTcpListener.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/wizarddb-pmdTcpListener.Tpo $(DEPDIR)/wizarddb-pmdTcpListener.Po
+#	$(AM_V_CXX)source='pmd/pmdTcpListener.cpp' object='wizarddb-pmdTcpListener.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(wizarddb_CXXFLAGS) $(CXXFLAGS) -c -o wizarddb-pmdTcpListener.o `test -f 'pmd/pmdTcpListener.cpp' || echo '$(srcdir)/'`pmd/pmdTcpListener.cpp
+
+wizarddb-pmdTcpListener.obj: pmd/pmdTcpListener.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(wizarddb_CXXFLAGS) $(CXXFLAGS) -MT wizarddb-pmdTcpListener.obj -MD -MP -MF $(DEPDIR)/wizarddb-pmdTcpListener.Tpo -c -o wizarddb-pmdTcpListener.obj `if test -f 'pmd/pmdTcpListener.cpp'; then $(CYGPATH_W) 'pmd/pmdTcpListener.cpp'; else $(CYGPATH_W) '$(srcdir)/pmd/pmdTcpListener.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/wizarddb-pmdTcpListener.Tpo $(DEPDIR)/wizarddb-pmdTcpListener.Po
+#	$(AM_V_CXX)source='pmd/pmdTcpListener.cpp' object='wizarddb-pmdTcpListener.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(wizarddb_CXXFLAGS) $(CXXFLAGS) -c -o wizarddb-pmdTcpListener.obj `if test -f 'pmd/pmdTcpListener.cpp'; then $(CYGPATH_W) 'pmd/pmdTcpListener.cpp'; else $(CYGPATH_W) '$(srcdir)/pmd/pmdTcpListener.cpp'; fi`
 
 wizarddb-bsonobj.o: bson/src/bsonobj.cpp
 	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(wizarddb_CXXFLAGS) $(CXXFLAGS) -MT wizarddb-bsonobj.o -MD -MP -MF $(DEPDIR)/wizarddb-bsonobj.Tpo -c -o wizarddb-bsonobj.o `test -f 'bson/src/bsonobj.cpp' || echo '$(srcdir)/'`bson/src/bsonobj.cpp

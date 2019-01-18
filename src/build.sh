@@ -1,6 +1,8 @@
 #!/bin/sh
+rm configure.in
 autoscan
-cp configure.scan configure.in
+mv configure.scan configure.in
+cp configure.in.bak configure.in
 aclocal
 autoconf
 autoheader

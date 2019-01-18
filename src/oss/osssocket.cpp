@@ -11,6 +11,7 @@ _ossSocket::_ossSocket(unsigned int port , int timeout)
     _peerAddressLen = sizeof(_peerAddress);
     _sockAddress.sin_family = AF_INET;
     _sockAddress.sin_addr.s_addr = htonl(INADDR_ANY);
+    _sockAddress.sin_port = htons ( port ) ;
     _addressLen = sizeof(_sockAddress);
 }
 _ossSocket::_ossSocket()
@@ -112,9 +113,9 @@ void _ossSocket::setAddress(const char* pHostname , unsigned int port)
     memset (&_peerAddress, 0 , sizeof(sockaddr_in));
     _peerAddressLen = sizeof(_peerAddress);
     _sockAddress.sin_family = AF_INET;
-    if((hp = gethostbyname(pHostname)))
+     if((hp = gethostbyname(pHostname)))
     {
-        _sockAddress.sin_addr.s_addr = *((int*)hp->h_addr_list[0]);
+       _sockAddress.sin_addr.s_addr = *((int*)hp->h_addr_list[0]);
     }
     else
     {
@@ -337,7 +338,7 @@ int _ossSocket::recvNF(char *pMsg, int len , int timeout, int flags)
     {
         FD_ZERO(&fds);
         FD_SET(_fd,&fds);
-        rc = select(maxFD + 1, &fds, NULL,NULL,timeout >= 0 ? &maxSelectTime:NULL);
+        rc = select(maxFD + 1,NULL,&fds,NULL,timeout >= 0 ? &maxSelectTime:NULL);
         // 0 means timeout
         if(rc == 0)
         {
@@ -463,7 +464,7 @@ int _ossSocket::accept(int *sock , struct sockaddr* addr , socklen_t *addrlen , 
     {
         FD_ZERO(&fds);
         FD_SET(_fd,&fds);
-        rc = select(maxFD + 1, &fds, NULL,NULL,timeout >= 0 ? &maxSelectTime:NULL);
+        rc = select(maxFD + 1,&fds,NULL,NULL,timeout >= 0 ? &maxSelectTime:NULL);
         // 0 means timeout
         if(rc == 0)
         {

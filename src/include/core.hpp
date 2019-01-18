@@ -37,7 +37,7 @@
 #define EDB_PMD_HELP_ONLY        -6
 #define EDB_PMD_FORCE_SYSTEM_EDU -7
 #define EDB_TIMEOUT              -8
-#define EDB_QUIESECD             -9
+#define EDB_QUIESCED             -9
 #define EDB_EDU_INVAL_STATUS     -10
 #define EDB_NETWORK              -11
 #define EDB_NETWORK_CLOSE        -12

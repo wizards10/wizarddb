@@ -161,7 +161,7 @@ int ConnectCommand::execute(_ossSocket& sock , std::vector<std::string>& argVec)
    rc = sock.initSocket();
    if(rc)
    {
-      printf("Failed to init socket , rc = %d" , rc);
+      printf("Failed to init socket , rc = %d \n" , rc);
       goto error;
    }
    rc = sock.connect();

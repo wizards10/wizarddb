@@ -1,2 +1,3 @@
 # wizarddb
 Newsql
+(Nosql)

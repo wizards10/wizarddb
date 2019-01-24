@@ -17,6 +17,7 @@
 #include <netdb.h>
 #include <netinet/tcp.h>
 #include <sys/mman.h>
+#include <stdarg.h>
 
 #include <string>
 #include <map>

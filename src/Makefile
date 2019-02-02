@@ -116,7 +116,8 @@ am_wizarddb_OBJECTS = wizarddb-pmdMain.$(OBJEXT) \
 	wizarddb-pmdTcpListener.$(OBJEXT) wizarddb-bsonobj.$(OBJEXT) \
 	wizarddb-json.$(OBJEXT) wizarddb-oid.$(OBJEXT) \
 	wizarddb-base64.$(OBJEXT) wizarddb-md5.$(OBJEXT) \
-	wizarddb-nonce.$(OBJEXT) wizarddb-osssocket.$(OBJEXT)
+	wizarddb-nonce.$(OBJEXT) wizarddb-osssocket.$(OBJEXT) \
+	wizarddb-ossPrimitiveFileOp.$(OBJEXT)
 wizarddb_OBJECTS = $(am_wizarddb_OBJECTS)
 wizarddb_DEPENDENCIES =
 wizarddb_LINK = $(CXXLD) $(wizarddb_CXXFLAGS) $(CXXFLAGS) \
@@ -202,12 +203,12 @@ distuninstallcheck_listfiles = find . -type f -print
 am__distuninstallcheck_listfiles = $(distuninstallcheck_listfiles) \
   | sed 's|^\./|$(prefix)/|' | grep -v '$(infodir)/dir$$'
 distcleancheck_listfiles = find . -type f -print
-ACLOCAL = ${SHELL} /home/wizard/git/wizarddb/src/missing aclocal-1.15
+ACLOCAL = ${SHELL} /home/wizard/wizarddb/src/missing aclocal-1.15
 AMTAR = $${TAR-tar}
 AM_DEFAULT_VERBOSITY = 1
-AUTOCONF = ${SHELL} /home/wizard/git/wizarddb/src/missing autoconf
-AUTOHEADER = ${SHELL} /home/wizard/git/wizarddb/src/missing autoheader
-AUTOMAKE = ${SHELL} /home/wizard/git/wizarddb/src/missing automake-1.15
+AUTOCONF = ${SHELL} /home/wizard/wizarddb/src/missing autoconf
+AUTOHEADER = ${SHELL} /home/wizard/wizarddb/src/missing autoheader
+AUTOMAKE = ${SHELL} /home/wizard/wizarddb/src/missing automake-1.15
 AWK = mawk
 CC = gcc
 CCDEPMODE = depmode=gcc3
@@ -235,7 +236,7 @@ LDFLAGS =
 LIBOBJS = 
 LIBS = 
 LTLIBOBJS = 
-MAKEINFO = ${SHELL} /home/wizard/git/wizarddb/src/missing makeinfo
+MAKEINFO = ${SHELL} /home/wizard/wizarddb/src/missing makeinfo
 MKDIR_P = /bin/mkdir -p
 OBJEXT = o
 PACKAGE = wizardddb
@@ -250,10 +251,10 @@ SET_MAKE =
 SHELL = /bin/bash
 STRIP = 
 VERSION = 1.0
-abs_builddir = /home/wizard/git/wizarddb/src
-abs_srcdir = /home/wizard/git/wizarddb/src
-abs_top_builddir = /home/wizard/git/wizarddb/src
-abs_top_srcdir = /home/wizard/git/wizarddb/src
+abs_builddir = /home/wizard/wizarddb/src
+abs_srcdir = /home/wizard/wizarddb/src
+abs_top_builddir = /home/wizard/wizarddb/src
+abs_top_srcdir = /home/wizard/wizarddb/src
 ac_ct_CC = gcc
 ac_ct_CXX = g++
 am__include = include
@@ -281,7 +282,7 @@ host_vendor = pc
 htmldir = ${docdir}
 includedir = ${prefix}/include
 infodir = ${datarootdir}/info
-install_sh = ${SHELL} /home/wizard/git/wizarddb/src/install-sh
+install_sh = ${SHELL} /home/wizard/wizarddb/src/install-sh
 libdir = ${exec_prefix}/lib
 libexecdir = ${exec_prefix}/libexec
 localedir = ${datarootdir}/locale
@@ -307,7 +308,7 @@ wizarddb_SOURCES = \
    pmd/pmdMain.cpp  pmd/pmdTcpListener.cpp \
    bson/src/bsonobj.cpp bson/src/util/json.cpp bson/src/oid.cpp \
    bson/src/lib/base64.cpp bson/src/lib/md5.cpp bson/src/lib/nonce.cpp \
-   oss/osssocket.cpp
+   oss/osssocket.cpp oss/ossPrimitiveFileOp.cpp
 
 edb_SOURCES = \
    client/edb.cpp client/command.cpp client/commandFactory.cpp \
@@ -316,11 +317,11 @@ edb_SOURCES = \
    oss/osssocket.cpp
 
 wizarddb_CXXFLAGS = -I../boost/boost -Ibson/src -Iinclude -D_FILE_OFFSET_BITS=64 -ggdb -Wall -O0
-wizarddb_LDADD = -lboost_system -lm -lboost_thread -lboost_program_options -lrt
-wizarddb_LDFLAGS = -fPIC -rdynamic -L../boost/stage/lib -pthread
-edb_CXXFLAGS = -I../boost -Ibson/src -Iinclude -D_FILE_OFFSET_BITS=64 -ggdb -Wall -O0
-edb_LDADD = -lm -lboost_system -lboost_thread -lrt
-edb_LDFLAGS = -fPIC -rdynamic -L../boost/stage/lib 
+wizarddb_LDADD = -lpthread -lm -lboost_system -lboost_program_options -lrt -lboost_thread
+wizarddb_LDFLAGS = -fPIC -rdynamic -L../boost/boost/stage/lib -pthread
+edb_CXXFLAGS = -I../boost/boost -Ibson/src -Iinclude -D_FILE_OFFSET_BITS=64 -ggdb -Wall -O0
+edb_LDADD = -lm -lboost_system -lboost_thread -lrt -lpthread
+edb_LDFLAGS = -fPIC -rdynamic -L../boost/boost/stage/lib -pthread 
 all: config.h
 	$(MAKE) $(AM_MAKEFLAGS) all-am
 
@@ -447,6 +448,7 @@ include ./$(DEPDIR)/wizarddb-json.Po
 include ./$(DEPDIR)/wizarddb-md5.Po
 include ./$(DEPDIR)/wizarddb-nonce.Po
 include ./$(DEPDIR)/wizarddb-oid.Po
+include ./$(DEPDIR)/wizarddb-ossPrimitiveFileOp.Po
 include ./$(DEPDIR)/wizarddb-osssocket.Po
 include ./$(DEPDIR)/wizarddb-pmdMain.Po
 include ./$(DEPDIR)/wizarddb-pmdTcpListener.Po
@@ -730,6 +732,20 @@ wizarddb-osssocket.obj: oss/osssocket.cpp
 #	$(AM_V_CXX)source='oss/osssocket.cpp' object='wizarddb-osssocket.obj' libtool=no \
 #	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
 #	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(wizarddb_CXXFLAGS) $(CXXFLAGS) -c -o wizarddb-osssocket.obj `if test -f 'oss/osssocket.cpp'; then $(CYGPATH_W) 'oss/osssocket.cpp'; else $(CYGPATH_W) '$(srcdir)/oss/osssocket.cpp'; fi`
+
+wizarddb-ossPrimitiveFileOp.o: oss/ossPrimitiveFileOp.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(wizarddb_CXXFLAGS) $(CXXFLAGS) -MT wizarddb-ossPrimitiveFileOp.o -MD -MP -MF $(DEPDIR)/wizarddb-ossPrimitiveFileOp.Tpo -c -o wizarddb-ossPrimitiveFileOp.o `test -f 'oss/ossPrimitiveFileOp.cpp' || echo '$(srcdir)/'`oss/ossPrimitiveFileOp.cpp
+	$(AM_V_at)$(am__mv) $(DEPDIR)/wizarddb-ossPrimitiveFileOp.Tpo $(DEPDIR)/wizarddb-ossPrimitiveFileOp.Po
+#	$(AM_V_CXX)source='oss/ossPrimitiveFileOp.cpp' object='wizarddb-ossPrimitiveFileOp.o' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(wizarddb_CXXFLAGS) $(CXXFLAGS) -c -o wizarddb-ossPrimitiveFileOp.o `test -f 'oss/ossPrimitiveFileOp.cpp' || echo '$(srcdir)/'`oss/ossPrimitiveFileOp.cpp
+
+wizarddb-ossPrimitiveFileOp.obj: oss/ossPrimitiveFileOp.cpp
+	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(wizarddb_CXXFLAGS) $(CXXFLAGS) -MT wizarddb-ossPrimitiveFileOp.obj -MD -MP -MF $(DEPDIR)/wizarddb-ossPrimitiveFileOp.Tpo -c -o wizarddb-ossPrimitiveFileOp.obj `if test -f 'oss/ossPrimitiveFileOp.cpp'; then $(CYGPATH_W) 'oss/ossPrimitiveFileOp.cpp'; else $(CYGPATH_W) '$(srcdir)/oss/ossPrimitiveFileOp.cpp'; fi`
+	$(AM_V_at)$(am__mv) $(DEPDIR)/wizarddb-ossPrimitiveFileOp.Tpo $(DEPDIR)/wizarddb-ossPrimitiveFileOp.Po
+#	$(AM_V_CXX)source='oss/ossPrimitiveFileOp.cpp' object='wizarddb-ossPrimitiveFileOp.obj' libtool=no \
+#	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) \
+#	$(AM_V_CXX_no)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(wizarddb_CXXFLAGS) $(CXXFLAGS) -c -o wizarddb-ossPrimitiveFileOp.obj `if test -f 'oss/ossPrimitiveFileOp.cpp'; then $(CYGPATH_W) 'oss/ossPrimitiveFileOp.cpp'; else $(CYGPATH_W) '$(srcdir)/oss/ossPrimitiveFileOp.cpp'; fi`
 
 ID: $(am__tagged_files)
 	$(am__define_uniq_tagged_files); mkid -fID $$unique

@@ -150,22 +150,25 @@ wizarddb-oid.o: bson/src/oid.cpp /usr/include/stdc-predef.h \
  /usr/include/c++/7/bits/ostream.tcc /usr/include/c++/7/istream \
  /usr/include/c++/7/bits/istream.tcc /usr/include/c++/7/sstream \
  /usr/include/c++/7/bits/sstream.tcc ../boost/boost/boost/utility.hpp \
- ../boost/boost/boost/utility/base_from_member.hpp \
+ ../boost/boost/boost/utility/addressof.hpp \
  ../boost/boost/boost/config.hpp ../boost/boost/boost/config/user.hpp \
- ../boost/boost/boost/config/detail/select_compiler_config.hpp \
- ../boost/boost/boost/config/compiler/gcc.hpp /usr/include/c++/7/cstddef \
- ../boost/boost/boost/config/detail/select_stdlib_config.hpp \
+ ../boost/boost/boost/config/select_compiler_config.hpp \
+ ../boost/boost/boost/config/compiler/gcc.hpp \
+ ../boost/boost/boost/config/select_stdlib_config.hpp \
+ /usr/include/c++/7/cstddef \
+ ../boost/boost/boost/config/no_tr1/utility.hpp \
  ../boost/boost/boost/config/stdlib/libstdcpp3.hpp /usr/include/unistd.h \
  /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
  /usr/include/x86_64-linux-gnu/bits/environments.h \
  /usr/include/x86_64-linux-gnu/bits/confname.h \
  /usr/include/x86_64-linux-gnu/bits/getopt_posix.h \
  /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
- ../boost/boost/boost/config/detail/select_platform_config.hpp \
+ ../boost/boost/boost/config/select_platform_config.hpp \
  ../boost/boost/boost/config/platform/linux.hpp \
- ../boost/boost/boost/config/detail/posix_features.hpp \
- ../boost/boost/boost/config/detail/suffix.hpp \
- ../boost/boost/boost/config/helper_macros.hpp \
+ ../boost/boost/boost/config/posix_features.hpp \
+ ../boost/boost/boost/config/suffix.hpp \
+ ../boost/boost/boost/detail/workaround.hpp \
+ ../boost/boost/boost/utility/base_from_member.hpp \
  ../boost/boost/boost/preprocessor/arithmetic/inc.hpp \
  ../boost/boost/boost/preprocessor/config/config.hpp \
  ../boost/boost/boost/preprocessor/repetition/enum_binary_params.hpp \
@@ -181,11 +184,9 @@ wizarddb-oid.o: bson/src/oid.cpp /usr/include/stdc-predef.h \
  ../boost/boost/boost/preprocessor/detail/auto_rec.hpp \
  ../boost/boost/boost/preprocessor/tuple/eat.hpp \
  ../boost/boost/boost/preprocessor/tuple/elem.hpp \
- ../boost/boost/boost/preprocessor/facilities/expand.hpp \
  ../boost/boost/boost/preprocessor/facilities/overload.hpp \
  ../boost/boost/boost/preprocessor/variadic/size.hpp \
  ../boost/boost/boost/preprocessor/tuple/rem.hpp \
- ../boost/boost/boost/preprocessor/tuple/detail/is_single_return.hpp \
  ../boost/boost/boost/preprocessor/variadic/elem.hpp \
  ../boost/boost/boost/preprocessor/repetition/enum_params.hpp \
  ../boost/boost/boost/preprocessor/repetition/repeat_from_to.hpp \
@@ -205,14 +206,6 @@ wizarddb-oid.o: bson/src/oid.cpp /usr/include/stdc-predef.h \
  ../boost/boost/boost/preprocessor/logical/bitand.hpp \
  ../boost/boost/boost/preprocessor/control/detail/while.hpp \
  ../boost/boost/boost/preprocessor/arithmetic/sub.hpp \
- ../boost/boost/boost/type_traits/is_same.hpp \
- ../boost/boost/boost/type_traits/integral_constant.hpp \
- ../boost/boost/boost/detail/workaround.hpp \
- ../boost/boost/boost/config/workaround.hpp \
- ../boost/boost/boost/type_traits/remove_cv.hpp \
- ../boost/boost/boost/type_traits/remove_reference.hpp \
- ../boost/boost/boost/utility/enable_if.hpp \
- ../boost/boost/boost/core/enable_if.hpp \
  ../boost/boost/boost/utility/binary.hpp \
  ../boost/boost/boost/preprocessor/control/deduce_d.hpp \
  ../boost/boost/boost/preprocessor/facilities/identity.hpp \
@@ -226,19 +219,62 @@ wizarddb-oid.o: bson/src/oid.cpp /usr/include/stdc-predef.h \
  ../boost/boost/boost/preprocessor/arithmetic/detail/div_base.hpp \
  ../boost/boost/boost/preprocessor/comparison/less_equal.hpp \
  ../boost/boost/boost/preprocessor/logical/not.hpp \
+ ../boost/boost/boost/utility/enable_if.hpp \
  ../boost/boost/boost/utility/identity_type.hpp \
  ../boost/boost/boost/type_traits/function_traits.hpp \
  ../boost/boost/boost/type_traits/is_function.hpp \
  ../boost/boost/boost/type_traits/is_reference.hpp \
+ ../boost/boost/boost/type_traits/config.hpp \
  ../boost/boost/boost/type_traits/is_lvalue_reference.hpp \
+ ../boost/boost/boost/type_traits/detail/bool_trait_def.hpp \
+ ../boost/boost/boost/type_traits/detail/template_arity_spec.hpp \
+ ../boost/boost/boost/mpl/int.hpp ../boost/boost/boost/mpl/int_fwd.hpp \
+ ../boost/boost/boost/mpl/aux_/adl_barrier.hpp \
+ ../boost/boost/boost/mpl/aux_/config/adl.hpp \
+ ../boost/boost/boost/mpl/aux_/config/msvc.hpp \
+ ../boost/boost/boost/mpl/aux_/config/intel.hpp \
+ ../boost/boost/boost/mpl/aux_/config/gcc.hpp \
+ ../boost/boost/boost/mpl/aux_/config/workaround.hpp \
+ ../boost/boost/boost/mpl/aux_/nttp_decl.hpp \
+ ../boost/boost/boost/mpl/aux_/config/nttp.hpp \
+ ../boost/boost/boost/mpl/aux_/integral_wrapper.hpp \
+ ../boost/boost/boost/mpl/integral_c_tag.hpp \
+ ../boost/boost/boost/mpl/aux_/config/static_constant.hpp \
+ ../boost/boost/boost/mpl/aux_/static_cast.hpp \
+ ../boost/boost/boost/mpl/aux_/template_arity_fwd.hpp \
+ ../boost/boost/boost/mpl/aux_/preprocessor/params.hpp \
+ ../boost/boost/boost/mpl/aux_/config/preprocessor.hpp \
+ ../boost/boost/boost/preprocessor/comma_if.hpp \
+ ../boost/boost/boost/preprocessor/repeat.hpp \
+ ../boost/boost/boost/preprocessor/inc.hpp \
+ ../boost/boost/boost/mpl/aux_/config/lambda.hpp \
+ ../boost/boost/boost/mpl/aux_/config/ttp.hpp \
+ ../boost/boost/boost/mpl/aux_/config/ctps.hpp \
+ ../boost/boost/boost/mpl/aux_/config/overload_resolution.hpp \
+ ../boost/boost/boost/type_traits/integral_constant.hpp \
+ ../boost/boost/boost/mpl/bool.hpp ../boost/boost/boost/mpl/bool_fwd.hpp \
+ ../boost/boost/boost/mpl/integral_c.hpp \
+ ../boost/boost/boost/mpl/integral_c_fwd.hpp \
+ ../boost/boost/boost/mpl/aux_/lambda_support.hpp \
+ ../boost/boost/boost/type_traits/detail/bool_trait_undef.hpp \
  ../boost/boost/boost/type_traits/is_rvalue_reference.hpp \
- ../boost/boost/boost/type_traits/detail/config.hpp \
- ../boost/boost/boost/version.hpp \
+ ../boost/boost/boost/type_traits/ice.hpp \
+ ../boost/boost/boost/type_traits/detail/yes_no_type.hpp \
+ ../boost/boost/boost/type_traits/detail/ice_or.hpp \
+ ../boost/boost/boost/type_traits/detail/ice_and.hpp \
+ ../boost/boost/boost/type_traits/detail/ice_not.hpp \
+ ../boost/boost/boost/type_traits/detail/ice_eq.hpp \
+ ../boost/boost/boost/type_traits/detail/false_result.hpp \
  ../boost/boost/boost/type_traits/detail/is_function_ptr_helper.hpp \
  ../boost/boost/boost/type_traits/add_pointer.hpp \
- ../boost/boost/boost/core/addressof.hpp \
- ../boost/boost/boost/core/checked_delete.hpp \
- ../boost/boost/boost/core/noncopyable.hpp bson/src/util/../stringdata.h \
+ ../boost/boost/boost/type_traits/remove_reference.hpp \
+ ../boost/boost/boost/type_traits/broken_compiler_spec.hpp \
+ ../boost/boost/boost/type_traits/detail/type_trait_def.hpp \
+ ../boost/boost/boost/type_traits/detail/type_trait_undef.hpp \
+ ../boost/boost/boost/checked_delete.hpp \
+ ../boost/boost/boost/next_prior.hpp /usr/include/c++/7/iterator \
+ /usr/include/c++/7/bits/stream_iterator.h \
+ ../boost/boost/boost/noncopyable.hpp bson/src/util/../stringdata.h \
  /usr/include/c++/7/cstring /usr/include/string.h /usr/include/strings.h \
  bson/src/util/builder.h bson/src/util/../inline_decls.h \
  bson/src/util/misc.h /usr/include/c++/7/ctime bson/src/lib/atomic_int.h \
@@ -628,19 +664,21 @@ bson/src/util/../bsonassert.h:
 
 ../boost/boost/boost/utility.hpp:
 
-../boost/boost/boost/utility/base_from_member.hpp:
+../boost/boost/boost/utility/addressof.hpp:
 
 ../boost/boost/boost/config.hpp:
 
 ../boost/boost/boost/config/user.hpp:
 
-../boost/boost/boost/config/detail/select_compiler_config.hpp:
+../boost/boost/boost/config/select_compiler_config.hpp:
 
 ../boost/boost/boost/config/compiler/gcc.hpp:
 
+../boost/boost/boost/config/select_stdlib_config.hpp:
+
 /usr/include/c++/7/cstddef:
 
-../boost/boost/boost/config/detail/select_stdlib_config.hpp:
+../boost/boost/boost/config/no_tr1/utility.hpp:
 
 ../boost/boost/boost/config/stdlib/libstdcpp3.hpp:
 
@@ -656,15 +694,17 @@ bson/src/util/../bsonassert.h:
 
 /usr/include/x86_64-linux-gnu/bits/getopt_core.h:
 
-../boost/boost/boost/config/detail/select_platform_config.hpp:
+../boost/boost/boost/config/select_platform_config.hpp:
 
 ../boost/boost/boost/config/platform/linux.hpp:
 
-../boost/boost/boost/config/detail/posix_features.hpp:
+../boost/boost/boost/config/posix_features.hpp:
 
-../boost/boost/boost/config/detail/suffix.hpp:
+../boost/boost/boost/config/suffix.hpp:
 
-../boost/boost/boost/config/helper_macros.hpp:
+../boost/boost/boost/detail/workaround.hpp:
+
+../boost/boost/boost/utility/base_from_member.hpp:
 
 ../boost/boost/boost/preprocessor/arithmetic/inc.hpp:
 
@@ -696,15 +736,11 @@ bson/src/util/../bsonassert.h:
 
 ../boost/boost/boost/preprocessor/tuple/elem.hpp:
 
-../boost/boost/boost/preprocessor/facilities/expand.hpp:
-
 ../boost/boost/boost/preprocessor/facilities/overload.hpp:
 
 ../boost/boost/boost/preprocessor/variadic/size.hpp:
 
 ../boost/boost/boost/preprocessor/tuple/rem.hpp:
-
-../boost/boost/boost/preprocessor/tuple/detail/is_single_return.hpp:
 
 ../boost/boost/boost/preprocessor/variadic/elem.hpp:
 
@@ -744,22 +780,6 @@ bson/src/util/../bsonassert.h:
 
 ../boost/boost/boost/preprocessor/arithmetic/sub.hpp:
 
-../boost/boost/boost/type_traits/is_same.hpp:
-
-../boost/boost/boost/type_traits/integral_constant.hpp:
-
-../boost/boost/boost/detail/workaround.hpp:
-
-../boost/boost/boost/config/workaround.hpp:
-
-../boost/boost/boost/type_traits/remove_cv.hpp:
-
-../boost/boost/boost/type_traits/remove_reference.hpp:
-
-../boost/boost/boost/utility/enable_if.hpp:
-
-../boost/boost/boost/core/enable_if.hpp:
-
 ../boost/boost/boost/utility/binary.hpp:
 
 ../boost/boost/boost/preprocessor/control/deduce_d.hpp:
@@ -786,6 +806,8 @@ bson/src/util/../bsonassert.h:
 
 ../boost/boost/boost/preprocessor/logical/not.hpp:
 
+../boost/boost/boost/utility/enable_if.hpp:
+
 ../boost/boost/boost/utility/identity_type.hpp:
 
 ../boost/boost/boost/type_traits/function_traits.hpp:
@@ -794,23 +816,113 @@ bson/src/util/../bsonassert.h:
 
 ../boost/boost/boost/type_traits/is_reference.hpp:
 
+../boost/boost/boost/type_traits/config.hpp:
+
 ../boost/boost/boost/type_traits/is_lvalue_reference.hpp:
+
+../boost/boost/boost/type_traits/detail/bool_trait_def.hpp:
+
+../boost/boost/boost/type_traits/detail/template_arity_spec.hpp:
+
+../boost/boost/boost/mpl/int.hpp:
+
+../boost/boost/boost/mpl/int_fwd.hpp:
+
+../boost/boost/boost/mpl/aux_/adl_barrier.hpp:
+
+../boost/boost/boost/mpl/aux_/config/adl.hpp:
+
+../boost/boost/boost/mpl/aux_/config/msvc.hpp:
+
+../boost/boost/boost/mpl/aux_/config/intel.hpp:
+
+../boost/boost/boost/mpl/aux_/config/gcc.hpp:
+
+../boost/boost/boost/mpl/aux_/config/workaround.hpp:
+
+../boost/boost/boost/mpl/aux_/nttp_decl.hpp:
+
+../boost/boost/boost/mpl/aux_/config/nttp.hpp:
+
+../boost/boost/boost/mpl/aux_/integral_wrapper.hpp:
+
+../boost/boost/boost/mpl/integral_c_tag.hpp:
+
+../boost/boost/boost/mpl/aux_/config/static_constant.hpp:
+
+../boost/boost/boost/mpl/aux_/static_cast.hpp:
+
+../boost/boost/boost/mpl/aux_/template_arity_fwd.hpp:
+
+../boost/boost/boost/mpl/aux_/preprocessor/params.hpp:
+
+../boost/boost/boost/mpl/aux_/config/preprocessor.hpp:
+
+../boost/boost/boost/preprocessor/comma_if.hpp:
+
+../boost/boost/boost/preprocessor/repeat.hpp:
+
+../boost/boost/boost/preprocessor/inc.hpp:
+
+../boost/boost/boost/mpl/aux_/config/lambda.hpp:
+
+../boost/boost/boost/mpl/aux_/config/ttp.hpp:
+
+../boost/boost/boost/mpl/aux_/config/ctps.hpp:
+
+../boost/boost/boost/mpl/aux_/config/overload_resolution.hpp:
+
+../boost/boost/boost/type_traits/integral_constant.hpp:
+
+../boost/boost/boost/mpl/bool.hpp:
+
+../boost/boost/boost/mpl/bool_fwd.hpp:
+
+../boost/boost/boost/mpl/integral_c.hpp:
+
+../boost/boost/boost/mpl/integral_c_fwd.hpp:
+
+../boost/boost/boost/mpl/aux_/lambda_support.hpp:
+
+../boost/boost/boost/type_traits/detail/bool_trait_undef.hpp:
 
 ../boost/boost/boost/type_traits/is_rvalue_reference.hpp:
 
-../boost/boost/boost/type_traits/detail/config.hpp:
+../boost/boost/boost/type_traits/ice.hpp:
 
-../boost/boost/boost/version.hpp:
+../boost/boost/boost/type_traits/detail/yes_no_type.hpp:
+
+../boost/boost/boost/type_traits/detail/ice_or.hpp:
+
+../boost/boost/boost/type_traits/detail/ice_and.hpp:
+
+../boost/boost/boost/type_traits/detail/ice_not.hpp:
+
+../boost/boost/boost/type_traits/detail/ice_eq.hpp:
+
+../boost/boost/boost/type_traits/detail/false_result.hpp:
 
 ../boost/boost/boost/type_traits/detail/is_function_ptr_helper.hpp:
 
 ../boost/boost/boost/type_traits/add_pointer.hpp:
 
-../boost/boost/boost/core/addressof.hpp:
+../boost/boost/boost/type_traits/remove_reference.hpp:
 
-../boost/boost/boost/core/checked_delete.hpp:
+../boost/boost/boost/type_traits/broken_compiler_spec.hpp:
 
-../boost/boost/boost/core/noncopyable.hpp:
+../boost/boost/boost/type_traits/detail/type_trait_def.hpp:
+
+../boost/boost/boost/type_traits/detail/type_trait_undef.hpp:
+
+../boost/boost/boost/checked_delete.hpp:
+
+../boost/boost/boost/next_prior.hpp:
+
+/usr/include/c++/7/iterator:
+
+/usr/include/c++/7/bits/stream_iterator.h:
+
+../boost/boost/boost/noncopyable.hpp:
 
 bson/src/util/../stringdata.h:
 

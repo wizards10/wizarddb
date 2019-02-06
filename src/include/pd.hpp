@@ -10,7 +10,7 @@
       }                                                               \
    } while ( 0 )               
                                           
-#define PD_CHECK(cond,retCode,gotoLabel,level,fmt,...)                \
+#define PD_CHECK(cond,retcode,gotoLabel,level,fmt,...)                \
         do                                                            \
         {                                                             \
             if(!(cond))                                               \
@@ -19,13 +19,13 @@
                 PD_LOG((level),fmt , ##__VA_ARGS__);                    \
                 goto gotoLabel;                                         \
             }                                                           \
-        } while (0);                                      \
+        } while (0)                                 \
 
 #define PD_RC_CHECK(rc , level , fmt ,...)                                 \
         do                                                                 \
         {                                                                  \
-            PD_CHECK((EDB_OK == (rc) , (rc),error , (level), fmt , ##__VA_ARGS__); \
-        } while (0);                                                        \
+            PD_CHECK((EDB_OK == (rc)),(rc),error , (level), fmt , ##__VA_ARGS__); \
+        } while (0)                                                      \
 
 #define EDB_VALIDATE_GOTOERROR(cond,ret,str)                                \
         {if(!(cond)){pdLog(PDERROR,__func__,__FILE__,__LINE__,str);         \

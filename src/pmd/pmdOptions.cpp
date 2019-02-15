@@ -152,6 +152,7 @@ int pmdOptions::init ( int argc, char **argv )
    po::options_description all ( "Command options" ) ;
    po::variables_map vm ;
    po::variables_map vm2 ;
+
    PMD_ADD_PARAM_OPTIONS_BEGIN( all )
       PMD_COMMANDS_OPTIONS
    PMD_ADD_PARAM_OPTIONS_END
@@ -199,5 +200,6 @@ done :
 error :
    goto done ;
 }
+
 
 

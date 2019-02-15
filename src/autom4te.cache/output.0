@@ -582,7 +582,7 @@ PACKAGE_STRING=
 PACKAGE_BUGREPORT=
 PACKAGE_URL=
 
-ac_unique_file="emeralddb"
+ac_unique_file="wizarddb"
 ac_unique_file="include/core.hpp"
 # Factoring default headers for most tests.
 ac_includes_default="\

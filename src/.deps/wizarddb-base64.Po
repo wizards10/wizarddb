@@ -2,10 +2,8 @@ wizarddb-base64.o: bson/src/lib/base64.cpp /usr/include/stdc-predef.h \
  bson/src/lib/base64.h ../boost/boost/boost/scoped_array.hpp \
  ../boost/boost/boost/smart_ptr/scoped_array.hpp \
  ../boost/boost/boost/config.hpp ../boost/boost/boost/config/user.hpp \
- ../boost/boost/boost/config/select_compiler_config.hpp \
- ../boost/boost/boost/config/compiler/gcc.hpp \
- ../boost/boost/boost/config/select_stdlib_config.hpp \
- /usr/include/c++/7/cstddef \
+ ../boost/boost/boost/config/detail/select_compiler_config.hpp \
+ ../boost/boost/boost/config/compiler/gcc.hpp /usr/include/c++/7/cstddef \
  /usr/include/x86_64-linux-gnu/c++/7/bits/c++config.h \
  /usr/include/x86_64-linux-gnu/c++/7/bits/os_defines.h \
  /usr/include/features.h /usr/include/x86_64-linux-gnu/sys/cdefs.h \
@@ -15,11 +13,7 @@ wizarddb-base64.o: bson/src/lib/base64.cpp /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/gnu/stubs-64.h \
  /usr/include/x86_64-linux-gnu/c++/7/bits/cpu_defines.h \
  /usr/lib/gcc/x86_64-linux-gnu/7/include/stddef.h \
- ../boost/boost/boost/config/no_tr1/utility.hpp \
- /usr/include/c++/7/utility /usr/include/c++/7/bits/stl_relops.h \
- /usr/include/c++/7/bits/stl_pair.h /usr/include/c++/7/bits/move.h \
- /usr/include/c++/7/bits/concept_check.h /usr/include/c++/7/type_traits \
- /usr/include/c++/7/initializer_list \
+ ../boost/boost/boost/config/detail/select_stdlib_config.hpp \
  ../boost/boost/boost/config/stdlib/libstdcpp3.hpp /usr/include/unistd.h \
  /usr/include/x86_64-linux-gnu/bits/posix_opt.h \
  /usr/include/x86_64-linux-gnu/bits/environments.h \
@@ -28,7 +22,7 @@ wizarddb-base64.o: bson/src/lib/base64.cpp /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/confname.h \
  /usr/include/x86_64-linux-gnu/bits/getopt_posix.h \
  /usr/include/x86_64-linux-gnu/bits/getopt_core.h \
- ../boost/boost/boost/config/select_platform_config.hpp \
+ ../boost/boost/boost/config/detail/select_platform_config.hpp \
  ../boost/boost/boost/config/platform/linux.hpp \
  /usr/include/c++/7/cstdlib /usr/include/stdlib.h \
  /usr/include/x86_64-linux-gnu/bits/libc-header-start.h \
@@ -61,14 +55,22 @@ wizarddb-base64.o: bson/src/lib/base64.cpp /usr/include/stdc-predef.h \
  /usr/include/x86_64-linux-gnu/bits/pthreadtypes-arch.h \
  /usr/include/alloca.h /usr/include/x86_64-linux-gnu/bits/stdlib-float.h \
  /usr/include/c++/7/bits/std_abs.h \
- ../boost/boost/boost/config/posix_features.hpp \
- ../boost/boost/boost/config/suffix.hpp ../boost/boost/boost/assert.hpp \
- /usr/include/assert.h /usr/include/c++/7/iostream \
- /usr/include/c++/7/ostream /usr/include/c++/7/ios \
- /usr/include/c++/7/iosfwd /usr/include/c++/7/bits/stringfwd.h \
- /usr/include/c++/7/bits/memoryfwd.h /usr/include/c++/7/bits/postypes.h \
- /usr/include/c++/7/cwchar /usr/include/wchar.h \
- /usr/lib/gcc/x86_64-linux-gnu/7/include/stdarg.h \
+ ../boost/boost/boost/config/detail/posix_features.hpp \
+ ../boost/boost/boost/config/detail/suffix.hpp \
+ ../boost/boost/boost/config/helper_macros.hpp \
+ ../boost/boost/boost/assert.hpp /usr/include/assert.h \
+ ../boost/boost/boost/checked_delete.hpp \
+ ../boost/boost/boost/core/checked_delete.hpp \
+ ../boost/boost/boost/smart_ptr/detail/sp_nullptr_t.hpp \
+ ../boost/boost/boost/smart_ptr/detail/sp_noexcept.hpp \
+ ../boost/boost/boost/detail/workaround.hpp \
+ ../boost/boost/boost/config/workaround.hpp \
+ ../boost/boost/boost/smart_ptr/detail/operator_bool.hpp \
+ /usr/include/c++/7/iostream /usr/include/c++/7/ostream \
+ /usr/include/c++/7/ios /usr/include/c++/7/iosfwd \
+ /usr/include/c++/7/bits/stringfwd.h /usr/include/c++/7/bits/memoryfwd.h \
+ /usr/include/c++/7/bits/postypes.h /usr/include/c++/7/cwchar \
+ /usr/include/wchar.h /usr/lib/gcc/x86_64-linux-gnu/7/include/stdarg.h \
  /usr/include/x86_64-linux-gnu/bits/wchar.h \
  /usr/include/x86_64-linux-gnu/bits/types/wint_t.h \
  /usr/include/x86_64-linux-gnu/bits/types/mbstate_t.h \
@@ -81,12 +83,14 @@ wizarddb-base64.o: bson/src/lib/base64.cpp /usr/include/stdc-predef.h \
  /usr/include/c++/7/bits/cxxabi_init_exception.h \
  /usr/include/c++/7/typeinfo /usr/include/c++/7/bits/hash_bytes.h \
  /usr/include/c++/7/new /usr/include/c++/7/bits/nested_exception.h \
- /usr/include/c++/7/bits/char_traits.h \
+ /usr/include/c++/7/bits/move.h /usr/include/c++/7/bits/concept_check.h \
+ /usr/include/c++/7/type_traits /usr/include/c++/7/bits/char_traits.h \
  /usr/include/c++/7/bits/stl_algobase.h \
  /usr/include/c++/7/bits/functexcept.h \
  /usr/include/c++/7/bits/cpp_type_traits.h \
  /usr/include/c++/7/ext/type_traits.h \
  /usr/include/c++/7/ext/numeric_traits.h \
+ /usr/include/c++/7/bits/stl_pair.h \
  /usr/include/c++/7/bits/stl_iterator_base_types.h \
  /usr/include/c++/7/bits/stl_iterator_base_funcs.h \
  /usr/include/c++/7/debug/assertions.h \
@@ -121,6 +125,7 @@ wizarddb-base64.o: bson/src/lib/base64.cpp /usr/include/stdc-predef.h \
  /usr/include/c++/7/bits/stl_function.h \
  /usr/include/c++/7/backward/binders.h \
  /usr/include/c++/7/bits/range_access.h \
+ /usr/include/c++/7/initializer_list \
  /usr/include/c++/7/bits/basic_string.h \
  /usr/include/c++/7/ext/alloc_traits.h \
  /usr/include/c++/7/bits/alloc_traits.h \
@@ -149,14 +154,9 @@ wizarddb-base64.o: bson/src/lib/base64.cpp /usr/include/stdc-predef.h \
  /usr/include/c++/7/bits/locale_facets.tcc \
  /usr/include/c++/7/bits/basic_ios.tcc \
  /usr/include/c++/7/bits/ostream.tcc /usr/include/c++/7/istream \
- /usr/include/c++/7/bits/istream.tcc \
- ../boost/boost/boost/current_function.hpp \
- ../boost/boost/boost/checked_delete.hpp \
- ../boost/boost/boost/smart_ptr/detail/sp_nullptr_t.hpp \
- ../boost/boost/boost/detail/workaround.hpp \
- ../boost/boost/boost/smart_ptr/detail/operator_bool.hpp \
- /usr/include/c++/7/sstream /usr/include/c++/7/bits/sstream.tcc \
- /usr/include/string.h /usr/include/strings.h
+ /usr/include/c++/7/bits/istream.tcc /usr/include/c++/7/sstream \
+ /usr/include/c++/7/bits/sstream.tcc /usr/include/string.h \
+ /usr/include/strings.h
 
 /usr/include/stdc-predef.h:
 
@@ -170,11 +170,9 @@ bson/src/lib/base64.h:
 
 ../boost/boost/boost/config/user.hpp:
 
-../boost/boost/boost/config/select_compiler_config.hpp:
+../boost/boost/boost/config/detail/select_compiler_config.hpp:
 
 ../boost/boost/boost/config/compiler/gcc.hpp:
-
-../boost/boost/boost/config/select_stdlib_config.hpp:
 
 /usr/include/c++/7/cstddef:
 
@@ -198,21 +196,7 @@ bson/src/lib/base64.h:
 
 /usr/lib/gcc/x86_64-linux-gnu/7/include/stddef.h:
 
-../boost/boost/boost/config/no_tr1/utility.hpp:
-
-/usr/include/c++/7/utility:
-
-/usr/include/c++/7/bits/stl_relops.h:
-
-/usr/include/c++/7/bits/stl_pair.h:
-
-/usr/include/c++/7/bits/move.h:
-
-/usr/include/c++/7/bits/concept_check.h:
-
-/usr/include/c++/7/type_traits:
-
-/usr/include/c++/7/initializer_list:
+../boost/boost/boost/config/detail/select_stdlib_config.hpp:
 
 ../boost/boost/boost/config/stdlib/libstdcpp3.hpp:
 
@@ -232,7 +216,7 @@ bson/src/lib/base64.h:
 
 /usr/include/x86_64-linux-gnu/bits/getopt_core.h:
 
-../boost/boost/boost/config/select_platform_config.hpp:
+../boost/boost/boost/config/detail/select_platform_config.hpp:
 
 ../boost/boost/boost/config/platform/linux.hpp:
 
@@ -304,13 +288,29 @@ bson/src/lib/base64.h:
 
 /usr/include/c++/7/bits/std_abs.h:
 
-../boost/boost/boost/config/posix_features.hpp:
+../boost/boost/boost/config/detail/posix_features.hpp:
 
-../boost/boost/boost/config/suffix.hpp:
+../boost/boost/boost/config/detail/suffix.hpp:
+
+../boost/boost/boost/config/helper_macros.hpp:
 
 ../boost/boost/boost/assert.hpp:
 
 /usr/include/assert.h:
+
+../boost/boost/boost/checked_delete.hpp:
+
+../boost/boost/boost/core/checked_delete.hpp:
+
+../boost/boost/boost/smart_ptr/detail/sp_nullptr_t.hpp:
+
+../boost/boost/boost/smart_ptr/detail/sp_noexcept.hpp:
+
+../boost/boost/boost/detail/workaround.hpp:
+
+../boost/boost/boost/config/workaround.hpp:
+
+../boost/boost/boost/smart_ptr/detail/operator_bool.hpp:
 
 /usr/include/c++/7/iostream:
 
@@ -362,6 +362,12 @@ bson/src/lib/base64.h:
 
 /usr/include/c++/7/bits/nested_exception.h:
 
+/usr/include/c++/7/bits/move.h:
+
+/usr/include/c++/7/bits/concept_check.h:
+
+/usr/include/c++/7/type_traits:
+
 /usr/include/c++/7/bits/char_traits.h:
 
 /usr/include/c++/7/bits/stl_algobase.h:
@@ -373,6 +379,8 @@ bson/src/lib/base64.h:
 /usr/include/c++/7/ext/type_traits.h:
 
 /usr/include/c++/7/ext/numeric_traits.h:
+
+/usr/include/c++/7/bits/stl_pair.h:
 
 /usr/include/c++/7/bits/stl_iterator_base_types.h:
 
@@ -460,6 +468,8 @@ bson/src/lib/base64.h:
 
 /usr/include/c++/7/bits/range_access.h:
 
+/usr/include/c++/7/initializer_list:
+
 /usr/include/c++/7/bits/basic_string.h:
 
 /usr/include/c++/7/ext/alloc_traits.h:
@@ -535,16 +545,6 @@ bson/src/lib/base64.h:
 /usr/include/c++/7/istream:
 
 /usr/include/c++/7/bits/istream.tcc:
-
-../boost/boost/boost/current_function.hpp:
-
-../boost/boost/boost/checked_delete.hpp:
-
-../boost/boost/boost/smart_ptr/detail/sp_nullptr_t.hpp:
-
-../boost/boost/boost/detail/workaround.hpp:
-
-../boost/boost/boost/smart_ptr/detail/operator_bool.hpp:
 
 /usr/include/c++/7/sstream:
 

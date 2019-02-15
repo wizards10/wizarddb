@@ -202,11 +202,11 @@ int HelpCommand::execute(_ossSocket& sock , std::vector<std::string>& argVec)
 {
    int ret = EDB_OK;
    printf("List of classes of commands:\n\n");
-   printf("%s [server] [port]-- connecting emeralddb server\n", COMMAND_CONNECT);
-   printf("%s -- sending a insert command to emeralddb server\n", COMMAND_INSERT);
-   printf("%s -- sending a query command to emeralddb server\n", COMMAND_QUERY);
-   printf("%s -- sending a delete command to emeralddb server\n", COMMAND_DELETE);
-   printf("%s [number]-- sending a test command to emeralddb server\n", COMMAND_TEST);
+   printf("%s [server] [port]-- connecting wizarddb server\n", COMMAND_CONNECT);
+   printf("%s -- sending a insert command to wizarddb server\n", COMMAND_INSERT);
+   printf("%s -- sending a query command to wizarddb server\n", COMMAND_QUERY);
+   printf("%s -- sending a delete command to wizarddb server\n", COMMAND_DELETE);
+   printf("%s [number]-- sending a test command to wizarddb server\n", COMMAND_TEST);
    printf("%s -- providing current number of record inserting\n", COMMAND_SNAPSHOT);
    printf("%s -- quitting command\n\n", COMMAND_QUIT);
    printf("Type \"help\" command for help\n");

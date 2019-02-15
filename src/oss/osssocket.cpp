@@ -60,7 +60,7 @@ _ossSocket::_ossSocket(int* sock , int timeout)
     rc = getsockname(_fd , (sockaddr*)&_sockAddress , &_addressLen);
     if(rc)
     {
-        PD_LOG(PDERROR,"Failed to get sock name , errno = %d", SOCKET_GETLASTERROR);
+        PD_LOG ( PDERROR, "Failed to get sock name, error = %d",SOCKET_GETLASTERROR ) ;
     }
     else
     {

@@ -4,7 +4,7 @@
 #include "pd.hpp"
 #include "pmdOptions.hpp"
 #define PMD_MAX_SIGNALS 64
-/*static int pmdResolveArguments (int argc , char** argv)
+static int pmdResolveArguments (int argc , char** argv)
 {
 	int rc = EDB_OK;
 	pmdOptions options;
@@ -125,17 +125,32 @@ static int pmdSetupSignalHandler()
 		sigaction(i + 1 , &newact , NULL);
 	}
 	return rc;
-}*/
-int pmdMasterThreadMain()
+}
+int pmdMasterThreadMain(int argc , char** argv)
 {
 	int rc = EDB_OK;
-	//EDB_KRCB* krcb = pmdGetKRCB();
-	//signal handler
-	//rc = pmdSetupSignalHandler();
-	return EDB_OK;
+	EDB_KRCB* krcb = pmdGetKRCB();
+	rc = pmdSetupSignalHandler();
+   PD_RC_CHECK ( rc, PDERROR, "Failed to setup signal handler, rc = %d", rc ) ;
+   rc = pmdResolveArguments ( argc, argv ) ;
+   std::cout<<rc<<std::endl;
+   if ( EDB_PMD_HELP_ONLY == rc )
+   {
+      goto done ;
+   }
+   PD_RC_CHECK ( rc, PDERROR, "Failed to resolve argument, rc = %d", rc ) ;
+   std::cout<<EDB_IS_DB_UP<<std::endl;
+   while ( EDB_IS_DB_UP )
+   {
+      sleep(1) ;
+   }
+done :
+   return rc ;
+error :
+   goto done ;
 }
 int main(int argc,char** argv)
 {
-	pmdTcpListenerEntryPoint () ;
+   pmdMasterThreadMain(argc , argv);
 	return 0;
 }

@@ -249,30 +249,30 @@ int _ossSocket::recv(char *pMsg, int len , int timeout, int flags)
     }
     maxSelectTime.tv_sec = timeout / 1000000;
     maxSelectTime.tv_usec = timeout % 1000000;
-    while(true)
+   while (true)
     {
         FD_ZERO(&fds);
-        FD_SET(_fd,&fds);
-        rc = select(maxFD + 1, &fds, NULL,NULL,timeout >= 0 ? &maxSelectTime:NULL);
+        FD_SET(_fd, &fds);
+        rc = select(maxFD + 1, &fds, NULL, NULL, timeout >= 0 ? &maxSelectTime : NULL);
         // 0 means timeout
-        if(rc == 0)
+        if (rc == 0)
         {
             rc = EDB_TIMEOUT;
             goto done;
         }
         // if < 0 something wrong
-        if(rc < 0)
+        if (rc < 0)
         {
             rc = SOCKET_GETLASTERROR;
-            if(EINTR == rc)
+            if (EINTR == rc)
             {
                 continue;
             }
-         PD_RC_CHECK ( EDB_NETWORK, PDERROR,
-                       "Failed to select from socket, rc = %d", rc ) ;
+            PD_RC_CHECK(EDB_NETWORK, PDERROR,
+                        "Failed to select from socket, rc = %d", rc);
         }
-    
-        if(FD_ISSET(_fd,&fds))
+
+        if (FD_ISSET(_fd, &fds))
         {
             break;
         }
@@ -463,18 +463,24 @@ int _ossSocket::accept(int *sock , struct sockaddr* addr , socklen_t *addrlen , 
             }
             PD_RC_CHECK(EDB_NETWORK,PDERROR,"Failed to select from socket,rc = %d",rc);
         }
-    
         if(FD_ISSET(_fd,&fds))
         {
+            rc = EDB_OK;
+            sleep(20);
+            *sock = ::accept(_fd , addr , addrlen);
+            printf("Accept successfull \n");
             break;
         }
     }
-    rc = EDB_OK;
+    /*rc = EDB_OK;
+    sleep(5);
     *sock = ::accept(_fd , addr , addrlen);
+    printf("Accept successfull \n");
     if(-1 == *sock)
     {
-        PD_RC_CHECK(EDB_NETWORK,PDERROR,"Failed to accept socket ,rc = %d",SOCKET_GETLASTERROR);
-    }   
+        //PD_RC_CHECK(EDB_NETWORK,PDERROR,"Failed to accept socket ,rc = %d",SOCKET_GETLASTERROR);
+        rc = EDB_TIMEOUT;
+    } */  
 done:
     return rc;
 error:

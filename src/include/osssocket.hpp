@@ -12,7 +12,7 @@
 class _ossSocket
 {
 private:
-    int _fd;
+    int  _fd;
     socklen_t _addressLen;
     socklen_t _peerAddressLen;
     struct sockaddr_in _sockAddress;

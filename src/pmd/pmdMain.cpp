@@ -142,7 +142,7 @@ int pmdMasterThreadMain(int argc , char** argv)
    std::cout<<EDB_IS_DB_UP<<std::endl;
    while ( EDB_IS_DB_UP )
    {
-      sleep(1) ;
+      pmdTcpListenerEntryPoint();
    }
 done :
    return rc ;
@@ -151,6 +151,6 @@ error :
 }
 int main(int argc,char** argv)
 {
-   pmdMasterThreadMain(argc , argv);
+   pmdTcpListenerEntryPoint();
 	return 0;
 }

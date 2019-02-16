@@ -9,6 +9,7 @@ int pmdTcpListenerEntryPoint()
     int rc = EDB_OK;
     int port = 2333;
     _ossSocket sock(port);
+    int count = 0;
     rc = sock.initSocket();
     if(rc)
     {
@@ -33,8 +34,10 @@ int pmdTcpListenerEntryPoint()
         char buffer[1024];
         int size;
         _ossSocket sock1(&s);
+        count++;
+        printf("This is  %d connection\n ",count);
         sock1.disableNagle();
-        do
+        /*do
         {
             rc = sock1.recv((char*)&size , 4);
             if( rc && rc != EDB_TIMEOUT )
@@ -55,7 +58,8 @@ int pmdTcpListenerEntryPoint()
         }
         while( EDB_TIMEOUT == rc) ; 
         printf("%s\n " , buffer);
-        sock1.close();
+        sock1.close();*/
+
     }
     done:
     return rc;

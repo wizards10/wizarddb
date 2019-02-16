@@ -11,6 +11,6 @@ int EDB_KRCB::init(pmdOptions* options)
     strncpy(_pdDiagLogPath, getLogFilePath() , sizeof(_pdDiagLogPath));
     setSvcName(options->getServiceName());
     setMaxPool(options->getMaxPool());
-    PD_LOG(PDDEBUG,"getDBpath%s",options->getDBPath);
+    PD_LOG(PDDEBUG,"getDBpath%s",options->getDBPath());
     return EDB_OK;
 }

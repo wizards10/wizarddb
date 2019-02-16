@@ -1,5 +1,5 @@
 AUTOMAKE_OPTIONS = subdir-objects
-bin_PROGRAMS=wizarddb edb
+bin_PROGRAMS=wizarddb edb 
 wizarddb_SOURCES=\
    oss/ossPrimitiveFileOp.cpp pd/pd.cpp pmd/pmdMain.cpp pmd/pmdTcpListener.cpp pmd/pmdOptions.cpp \
    pmd/pmd.cpp  \

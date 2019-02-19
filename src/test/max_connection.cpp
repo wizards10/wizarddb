@@ -28,7 +28,6 @@ public:
         ling.l_linger = 0;
         setsockopt(sock , SOL_SOCKET , SO_LINGER , &ling , sizeof(ling));
         close(sock);
-        sleep(2);
         return;
     }
 private:

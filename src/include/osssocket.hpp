@@ -57,7 +57,8 @@ public:
     static int getHostName(char* pName , int nameLen);
     static int getPort(const char* pServiceName , unsigned short &port);
     bool isConnected();
+    void SetNoBlock();
 };
-
+typedef _ossSocket Tcp_Link;
 
 #endif

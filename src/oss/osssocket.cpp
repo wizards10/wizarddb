@@ -568,6 +568,11 @@ int _ossSocket::getPort(const char* pServiceName , unsigned short &port)
     }
     return rc;
 }
+void _ossSocket::SetNoBlock()
+{
+    int flags = fcntl(_fd , F_GETFL , 0);
+    int err = fcntl(_fd , F_SETFL , flags | O_NONBLOCK);
+}
 
 
 

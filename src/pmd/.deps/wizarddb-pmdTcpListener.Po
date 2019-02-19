@@ -191,8 +191,11 @@ pmd/wizarddb-pmdTcpListener.o: pmd/pmdTcpListener.cpp \
  /usr/include/c++/7/bits/locale_facets.tcc \
  /usr/include/c++/7/bits/basic_ios.tcc \
  /usr/include/c++/7/bits/ostream.tcc /usr/include/c++/7/istream \
- /usr/include/c++/7/bits/istream.tcc include/osssocket.hpp \
- include/core.hpp pmd/pmdTcpListener.hpp
+ /usr/include/c++/7/bits/istream.tcc \
+ /usr/include/x86_64-linux-gnu/sys/epoll.h \
+ /usr/include/x86_64-linux-gnu/bits/epoll.h pmd/pmdTcpListener.hpp \
+ include/tcpConnect.hpp include/data.hpp include/buffer.hpp \
+ include/core.hpp include/pd.hpp
 
 /usr/include/stdc-predef.h:
 
@@ -682,8 +685,18 @@ include/core.hpp:
 
 /usr/include/c++/7/bits/istream.tcc:
 
-include/osssocket.hpp:
+/usr/include/x86_64-linux-gnu/sys/epoll.h:
+
+/usr/include/x86_64-linux-gnu/bits/epoll.h:
+
+pmd/pmdTcpListener.hpp:
+
+include/tcpConnect.hpp:
+
+include/data.hpp:
+
+include/buffer.hpp:
 
 include/core.hpp:
 
-pmd/pmdTcpListener.hpp:
+include/pd.hpp:

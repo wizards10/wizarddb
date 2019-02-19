@@ -117,7 +117,9 @@ edb_OBJECTS = $(am_edb_OBJECTS)
 edb_DEPENDENCIES =
 edb_LINK = $(CXXLD) $(edb_CXXFLAGS) $(CXXFLAGS) $(edb_LDFLAGS) \
 	$(LDFLAGS) -o $@
-am_wizarddb_OBJECTS = oss/wizarddb-ossPrimitiveFileOp.$(OBJEXT) \
+am_wizarddb_OBJECTS = TcpConnect/wizarddb-buffer.$(OBJEXT) \
+	TcpConnect/wizarddb-tcpConnect.$(OBJEXT) \
+	oss/wizarddb-ossPrimitiveFileOp.$(OBJEXT) \
 	pd/wizarddb-pd.$(OBJEXT) pmd/wizarddb-pmdMain.$(OBJEXT) \
 	pmd/wizarddb-pmdTcpListener.$(OBJEXT) \
 	pmd/wizarddb-pmdOptions.$(OBJEXT) pmd/wizarddb-pmd.$(OBJEXT) \
@@ -316,6 +318,7 @@ top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
 AUTOMAKE_OPTIONS = subdir-objects
 wizarddb_SOURCES = \
+   TcpConnect/buffer.cpp  TcpConnect/tcpConnect.cpp  \
    oss/ossPrimitiveFileOp.cpp pd/pd.cpp pmd/pmdMain.cpp pmd/pmdTcpListener.cpp pmd/pmdOptions.cpp \
    pmd/pmd.cpp  \
    bson/src/bsonobj.cpp bson/src/util/json.cpp bson/src/oid.cpp \
@@ -493,6 +496,16 @@ pd/edb-pd.$(OBJEXT): pd/$(am__dirstamp) pd/$(DEPDIR)/$(am__dirstamp)
 edb$(EXEEXT): $(edb_OBJECTS) $(edb_DEPENDENCIES) $(EXTRA_edb_DEPENDENCIES) 
 	@rm -f edb$(EXEEXT)
 	$(AM_V_CXXLD)$(edb_LINK) $(edb_OBJECTS) $(edb_LDADD) $(LIBS)
+TcpConnect/$(am__dirstamp):
+	@$(MKDIR_P) TcpConnect
+	@: > TcpConnect/$(am__dirstamp)
+TcpConnect/$(DEPDIR)/$(am__dirstamp):
+	@$(MKDIR_P) TcpConnect/$(DEPDIR)
+	@: > TcpConnect/$(DEPDIR)/$(am__dirstamp)
+TcpConnect/wizarddb-buffer.$(OBJEXT): TcpConnect/$(am__dirstamp) \
+	TcpConnect/$(DEPDIR)/$(am__dirstamp)
+TcpConnect/wizarddb-tcpConnect.$(OBJEXT): TcpConnect/$(am__dirstamp) \
+	TcpConnect/$(DEPDIR)/$(am__dirstamp)
 oss/wizarddb-ossPrimitiveFileOp.$(OBJEXT): oss/$(am__dirstamp) \
 	oss/$(DEPDIR)/$(am__dirstamp)
 pd/wizarddb-pd.$(OBJEXT): pd/$(am__dirstamp) \
@@ -532,6 +545,7 @@ wizarddb$(EXEEXT): $(wizarddb_OBJECTS) $(wizarddb_DEPENDENCIES) $(EXTRA_wizarddb
 
 mostlyclean-compile:
 	-rm -f *.$(OBJEXT)
+	-rm -f TcpConnect/*.$(OBJEXT)
 	-rm -f bson/src/*.$(OBJEXT)
 	-rm -f bson/src/lib/*.$(OBJEXT)
 	-rm -f bson/src/util/*.$(OBJEXT)
@@ -543,6 +557,8 @@ mostlyclean-compile:
 distclean-compile:
 	-rm -f *.tab.c
 
+@AMDEP_TRUE@@am__include@ @am__quote@TcpConnect/$(DEPDIR)/wizarddb-buffer.Po@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@TcpConnect/$(DEPDIR)/wizarddb-tcpConnect.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@bson/src/$(DEPDIR)/edb-bsonobj.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@bson/src/$(DEPDIR)/edb-oid.Po@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@bson/src/$(DEPDIR)/wizarddb-bsonobj.Po@am__quote@
@@ -752,6 +768,34 @@ pd/edb-pd.obj: pd/pd.cpp
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='pd/pd.cpp' object='pd/edb-pd.obj' libtool=no @AMDEPBACKSLASH@
 @AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
 @am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(edb_CXXFLAGS) $(CXXFLAGS) -c -o pd/edb-pd.obj `if test -f 'pd/pd.cpp'; then $(CYGPATH_W) 'pd/pd.cpp'; else $(CYGPATH_W) '$(srcdir)/pd/pd.cpp'; fi`
+
+TcpConnect/wizarddb-buffer.o: TcpConnect/buffer.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(wizarddb_CXXFLAGS) $(CXXFLAGS) -MT TcpConnect/wizarddb-buffer.o -MD -MP -MF TcpConnect/$(DEPDIR)/wizarddb-buffer.Tpo -c -o TcpConnect/wizarddb-buffer.o `test -f 'TcpConnect/buffer.cpp' || echo '$(srcdir)/'`TcpConnect/buffer.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) TcpConnect/$(DEPDIR)/wizarddb-buffer.Tpo TcpConnect/$(DEPDIR)/wizarddb-buffer.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='TcpConnect/buffer.cpp' object='TcpConnect/wizarddb-buffer.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(wizarddb_CXXFLAGS) $(CXXFLAGS) -c -o TcpConnect/wizarddb-buffer.o `test -f 'TcpConnect/buffer.cpp' || echo '$(srcdir)/'`TcpConnect/buffer.cpp
+
+TcpConnect/wizarddb-buffer.obj: TcpConnect/buffer.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(wizarddb_CXXFLAGS) $(CXXFLAGS) -MT TcpConnect/wizarddb-buffer.obj -MD -MP -MF TcpConnect/$(DEPDIR)/wizarddb-buffer.Tpo -c -o TcpConnect/wizarddb-buffer.obj `if test -f 'TcpConnect/buffer.cpp'; then $(CYGPATH_W) 'TcpConnect/buffer.cpp'; else $(CYGPATH_W) '$(srcdir)/TcpConnect/buffer.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) TcpConnect/$(DEPDIR)/wizarddb-buffer.Tpo TcpConnect/$(DEPDIR)/wizarddb-buffer.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='TcpConnect/buffer.cpp' object='TcpConnect/wizarddb-buffer.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(wizarddb_CXXFLAGS) $(CXXFLAGS) -c -o TcpConnect/wizarddb-buffer.obj `if test -f 'TcpConnect/buffer.cpp'; then $(CYGPATH_W) 'TcpConnect/buffer.cpp'; else $(CYGPATH_W) '$(srcdir)/TcpConnect/buffer.cpp'; fi`
+
+TcpConnect/wizarddb-tcpConnect.o: TcpConnect/tcpConnect.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(wizarddb_CXXFLAGS) $(CXXFLAGS) -MT TcpConnect/wizarddb-tcpConnect.o -MD -MP -MF TcpConnect/$(DEPDIR)/wizarddb-tcpConnect.Tpo -c -o TcpConnect/wizarddb-tcpConnect.o `test -f 'TcpConnect/tcpConnect.cpp' || echo '$(srcdir)/'`TcpConnect/tcpConnect.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) TcpConnect/$(DEPDIR)/wizarddb-tcpConnect.Tpo TcpConnect/$(DEPDIR)/wizarddb-tcpConnect.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='TcpConnect/tcpConnect.cpp' object='TcpConnect/wizarddb-tcpConnect.o' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(wizarddb_CXXFLAGS) $(CXXFLAGS) -c -o TcpConnect/wizarddb-tcpConnect.o `test -f 'TcpConnect/tcpConnect.cpp' || echo '$(srcdir)/'`TcpConnect/tcpConnect.cpp
+
+TcpConnect/wizarddb-tcpConnect.obj: TcpConnect/tcpConnect.cpp
+@am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(wizarddb_CXXFLAGS) $(CXXFLAGS) -MT TcpConnect/wizarddb-tcpConnect.obj -MD -MP -MF TcpConnect/$(DEPDIR)/wizarddb-tcpConnect.Tpo -c -o TcpConnect/wizarddb-tcpConnect.obj `if test -f 'TcpConnect/tcpConnect.cpp'; then $(CYGPATH_W) 'TcpConnect/tcpConnect.cpp'; else $(CYGPATH_W) '$(srcdir)/TcpConnect/tcpConnect.cpp'; fi`
+@am__fastdepCXX_TRUE@	$(AM_V_at)$(am__mv) TcpConnect/$(DEPDIR)/wizarddb-tcpConnect.Tpo TcpConnect/$(DEPDIR)/wizarddb-tcpConnect.Po
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	$(AM_V_CXX)source='TcpConnect/tcpConnect.cpp' object='TcpConnect/wizarddb-tcpConnect.obj' libtool=no @AMDEPBACKSLASH@
+@AMDEP_TRUE@@am__fastdepCXX_FALSE@	DEPDIR=$(DEPDIR) $(CXXDEPMODE) $(depcomp) @AMDEPBACKSLASH@
+@am__fastdepCXX_FALSE@	$(AM_V_CXX@am__nodep@)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(wizarddb_CXXFLAGS) $(CXXFLAGS) -c -o TcpConnect/wizarddb-tcpConnect.obj `if test -f 'TcpConnect/tcpConnect.cpp'; then $(CYGPATH_W) 'TcpConnect/tcpConnect.cpp'; else $(CYGPATH_W) '$(srcdir)/TcpConnect/tcpConnect.cpp'; fi`
 
 oss/wizarddb-ossPrimitiveFileOp.o: oss/ossPrimitiveFileOp.cpp
 @am__fastdepCXX_TRUE@	$(AM_V_CXX)$(CXX) $(DEFS) $(DEFAULT_INCLUDES) $(INCLUDES) $(AM_CPPFLAGS) $(CPPFLAGS) $(wizarddb_CXXFLAGS) $(CXXFLAGS) -MT oss/wizarddb-ossPrimitiveFileOp.o -MD -MP -MF oss/$(DEPDIR)/wizarddb-ossPrimitiveFileOp.Tpo -c -o oss/wizarddb-ossPrimitiveFileOp.o `test -f 'oss/ossPrimitiveFileOp.cpp' || echo '$(srcdir)/'`oss/ossPrimitiveFileOp.cpp
@@ -1190,6 +1234,8 @@ clean-generic:
 distclean-generic:
 	-test -z "$(CONFIG_CLEAN_FILES)" || rm -f $(CONFIG_CLEAN_FILES)
 	-test . = "$(srcdir)" || test -z "$(CONFIG_CLEAN_VPATH_FILES)" || rm -f $(CONFIG_CLEAN_VPATH_FILES)
+	-rm -f TcpConnect/$(DEPDIR)/$(am__dirstamp)
+	-rm -f TcpConnect/$(am__dirstamp)
 	-rm -f bson/src/$(DEPDIR)/$(am__dirstamp)
 	-rm -f bson/src/$(am__dirstamp)
 	-rm -f bson/src/lib/$(DEPDIR)/$(am__dirstamp)
@@ -1214,7 +1260,7 @@ clean-am: clean-binPROGRAMS clean-generic mostlyclean-am
 
 distclean: distclean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
-	-rm -rf bson/src/$(DEPDIR) bson/src/lib/$(DEPDIR) bson/src/util/$(DEPDIR) client/$(DEPDIR) oss/$(DEPDIR) pd/$(DEPDIR) pmd/$(DEPDIR)
+	-rm -rf TcpConnect/$(DEPDIR) bson/src/$(DEPDIR) bson/src/lib/$(DEPDIR) bson/src/util/$(DEPDIR) client/$(DEPDIR) oss/$(DEPDIR) pd/$(DEPDIR) pmd/$(DEPDIR)
 	-rm -f Makefile
 distclean-am: clean-am distclean-compile distclean-generic \
 	distclean-hdr distclean-tags
@@ -1262,7 +1308,7 @@ installcheck-am:
 maintainer-clean: maintainer-clean-am
 	-rm -f $(am__CONFIG_DISTCLEAN_FILES)
 	-rm -rf $(top_srcdir)/autom4te.cache
-	-rm -rf bson/src/$(DEPDIR) bson/src/lib/$(DEPDIR) bson/src/util/$(DEPDIR) client/$(DEPDIR) oss/$(DEPDIR) pd/$(DEPDIR) pmd/$(DEPDIR)
+	-rm -rf TcpConnect/$(DEPDIR) bson/src/$(DEPDIR) bson/src/lib/$(DEPDIR) bson/src/util/$(DEPDIR) client/$(DEPDIR) oss/$(DEPDIR) pd/$(DEPDIR) pmd/$(DEPDIR)
 	-rm -f Makefile
 maintainer-clean-am: distclean-am maintainer-clean-generic
 

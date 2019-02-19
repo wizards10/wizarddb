@@ -23,12 +23,17 @@
 #include <map>
 #include <vector>
 #include <iostream>
+#include <sys/epoll.h>
+#define DEFAULT_CORE_NUM 4
+#define DEFAULT_PORT   2333
+#define DEFAULT_BUFFER_SIZE 1024
+#define OSS_BEST_BUFFER   8 * 1024
 
 #define OSS_MAX_PATHSIZE PATH_MAX
 #define OSS_FILE_SEP_STR "/"
 #define OSS_FILE_SEP_CHAR *((const char*)OSS_FILE_SEP_STR)[0];
 #define OSS_NEWLINE       "\n"
-
+#define OSS_MAX_FDS               8 * 1024
 #define EDB_OK                    0
 #define EDB_IO                   -1
 #define EDB_INVALIDARG           -2

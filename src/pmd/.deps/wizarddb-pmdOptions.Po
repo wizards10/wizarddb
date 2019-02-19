@@ -192,6 +192,8 @@ pmd/wizarddb-pmdOptions.o: pmd/pmdOptions.cpp /usr/include/stdc-predef.h \
  /usr/include/c++/7/bits/basic_ios.tcc \
  /usr/include/c++/7/bits/ostream.tcc /usr/include/c++/7/istream \
  /usr/include/c++/7/bits/istream.tcc \
+ /usr/include/x86_64-linux-gnu/sys/epoll.h \
+ /usr/include/x86_64-linux-gnu/bits/epoll.h \
  ../boost/boost/boost/program_options.hpp \
  ../boost/boost/boost/program_options/options_description.hpp \
  ../boost/boost/boost/program_options/config.hpp \
@@ -1469,6 +1471,10 @@ include/core.hpp:
 /usr/include/c++/7/istream:
 
 /usr/include/c++/7/bits/istream.tcc:
+
+/usr/include/x86_64-linux-gnu/sys/epoll.h:
+
+/usr/include/x86_64-linux-gnu/bits/epoll.h:
 
 ../boost/boost/boost/program_options.hpp:
 

@@ -192,7 +192,9 @@ client/edb-commandFactory.o: client/commandFactory.cpp \
  /usr/include/c++/7/bits/locale_facets.tcc \
  /usr/include/c++/7/bits/basic_ios.tcc \
  /usr/include/c++/7/bits/ostream.tcc /usr/include/c++/7/istream \
- /usr/include/c++/7/bits/istream.tcc bson/src/util/json.h \
+ /usr/include/c++/7/bits/istream.tcc \
+ /usr/include/x86_64-linux-gnu/sys/epoll.h \
+ /usr/include/x86_64-linux-gnu/bits/epoll.h bson/src/util/json.h \
  bson/src/util/../bson.h bson/src/util/../bsonassert.h \
  /usr/include/c++/7/memory /usr/include/c++/7/bits/stl_tempbuf.h \
  /usr/include/c++/7/bits/stl_raw_storage_iter.h \
@@ -1547,6 +1549,10 @@ include/core.hpp:
 /usr/include/c++/7/istream:
 
 /usr/include/c++/7/bits/istream.tcc:
+
+/usr/include/x86_64-linux-gnu/sys/epoll.h:
+
+/usr/include/x86_64-linux-gnu/bits/epoll.h:
 
 bson/src/util/json.h:
 

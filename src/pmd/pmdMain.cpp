@@ -106,7 +106,7 @@ static void pmdSignalHandler (int sigNum)
 {
 	if(sigNum > 0 && sigNum <= PMD_MAX_SIGNALS)
 	{
-	  if ( signalHandleMap[sigNum].handle )
+	   if ( signalHandleMap[sigNum].handle )
       {
          EDB_SHUTDOWN_DB ;
       }
@@ -151,6 +151,7 @@ error :
 }
 int main(int argc,char** argv)
 {
+
    pmdTcpListenerEntryPoint();
 	return 0;
 }

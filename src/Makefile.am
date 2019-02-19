@@ -1,6 +1,7 @@
 AUTOMAKE_OPTIONS = subdir-objects
 bin_PROGRAMS=wizarddb edb 
 wizarddb_SOURCES=\
+   TcpConnect/buffer.cpp  TcpConnect/tcpConnect.cpp  \
    oss/ossPrimitiveFileOp.cpp pd/pd.cpp pmd/pmdMain.cpp pmd/pmdTcpListener.cpp pmd/pmdOptions.cpp \
    pmd/pmd.cpp  \
    bson/src/bsonobj.cpp bson/src/util/json.cpp bson/src/oid.cpp \
